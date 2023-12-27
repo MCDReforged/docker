@@ -1,0 +1,96 @@
+# qq_api, qq_chat
+aiocqhttp
+
+# cpu_temp, prime_backup
+apscheduler
+
+# prime_backup
+blake3
+
+# chatbridge, pcrc
+colorlog
+
+# mcdr_pycraft_bot, pcrc
+cryptography
+
+# fastapi_mcdr
+fastapi
+
+# simple_translator
+googletrans
+
+# minecraft_data_api, player_manager
+hjson
+
+# simple_test
+javaproperties
+
+# mount
+jproperties
+
+# prime_backup
+lz4
+
+# player_manager
+nbt
+
+# joinmotd_reforged
+nbtlib
+
+# mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, online, player_manager
+parse
+
+# cpu_temp, info, ipanel_mcdreforged, prime_backup
+psutil
+
+# info
+py_cpuinfo
+
+# chatbridge
+pycryptodome
+
+# chatbridgereforged_mc
+pycryptodomex
+
+# better_backup
+pydal
+
+# mcdr_pycraft_bot, pcrc
+pynbt
+
+# prime_backup
+pytz
+
+# better_backup
+pyzstd
+
+# pcrc
+redbaron
+
+# lite_file_manager, mc_uuid, mcdr_pycraft_bot, mcdreforged_plugin_manager, pcrc, uuid_api, wiki_request
+requests
+
+# eulagree, pcrc
+ruamel.yaml
+
+# simple_calculator
+simpleeval
+
+# faster_transfer
+speedcopy
+
+# database_api, player_manager, prime_backup
+sqlalchemy
+
+# fastapi_mcdr, qq_api
+uvicorn
+
+# ipanel_mcdreforged, onebot_api
+websocket_client
+
+# better_backup, prime_backup
+xxhash
+
+# prime_backup
+zstandard
+

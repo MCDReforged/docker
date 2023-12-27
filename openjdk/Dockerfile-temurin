@@ -1,0 +1,21 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+ARG JAVA
+
+# https://adoptium.net/installation/linux/
+RUN <<EOT
+set -e
+export DEBIAN_FRONTEND="noninteractive"
+if [ -n "$JAVA" ]; then
+  apt-get update
+  apt-get install --no-install-recommends -y gnupg ca-certificates curl
+  curl -so- https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/trusted.gpg.d/adoptium.gpg
+  echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
+  apt-get update
+  apt-get install --no-install-recommends -y "temurin-${JAVA}-jdk"
+  rm -rf /var/lib/apt/lists/*
+else
+  exit 1
+fi
+EOT

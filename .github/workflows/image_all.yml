@@ -1,0 +1,35 @@
+name: Docker images
+
+on:
+  push:
+    branches:
+      - noop  # XXX
+    tags:
+      - 'v*'
+
+jobs:
+  base:
+    uses: ./.github/workflows/image_one.yml
+    secrets: inherit
+    with:
+      dockerfile_name: Dockerfile-base
+      build_args: ''
+      image_name: mcdreforged/mcdreforged
+      tag_suffix: ''
+
+  openjdk:
+    needs: base
+    strategy:
+      matrix:
+        java: ['8', '11', '17', '21']
+        distribution: ['temurin', 'zulu', 'liberica']
+
+    uses: ./.github/workflows/image_one.yml
+    secrets: inherit
+    with:
+      dockerfile_name: Dockerfile-${{ matrix.distribution }}
+      build_args: |-
+        BASE_IMAGE=mcdreforged/mcdreforged@${{ needs.base.outputs.digest }}
+        JAVA=${{ matrix.java }}
+      image_name: mcdreforged/mcdreforged-${{ matrix.distribution }}
+      tag_suffix: -${{ matrix.java }}
