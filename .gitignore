@@ -1,0 +1,8 @@
+# IDE
+.idea/
+.vscode/
+
+# python things
+__pycache__
+*.pyc
+/venv/
