@@ -48,6 +48,7 @@ jobs:
       base_image_tag: ${{ steps.config.outputs.base_image_tag }}
       base_image_tags: ${{ steps.config.outputs.base_image_tags }}
 
+  # TODO: use digit to replace base image tag
   extra:
     name: Extra packages
     needs: config
@@ -76,7 +77,7 @@ jobs:
     with:
       dockerfile_name: Dockerfile-${{ matrix.distribution }}
       build_args: |-
-        BASE_IMAGE=mcdreforged/${{ matrix.extra == 'true' && 'mcdreforged-extra' || 'mcdreforged' }}:${{ needs.config.outputs.base_image_tag }}
+        BASE_IMAGE=mcdreforged/${{ matrix.extra == 'true' && format('mcdreforged-extra@{0}', needs.extra.outputs.digest) || format('mcdreforged:{0}', needs.config.outputs.base_image_tag) }}
         JAVA=${{ matrix.java }}
       base_image_tags: ${{ needs.config.outputs.base_image_tags }}
       image_name: mcdreforged/mcdreforged-${{ matrix.distribution }}
