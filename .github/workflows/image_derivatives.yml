@@ -14,6 +14,10 @@ on:
         type: string
         required: true
 
+concurrency:
+  group: ${{ inputs.source_tag }}
+  cancel-in-progress: true
+
 jobs:
   extra:
     uses: ./.github/workflows/image_one.yml
@@ -37,7 +41,7 @@ jobs:
     uses: ./.github/workflows/image_one.yml
     secrets: inherit
     with:
-      job_name: OpenJDK (jdk${{ matrix.java }}, ${{ matrix.distribution }}${{ ', extra' && matrix.extra == 'true' || '' }})
+      job_name: OpenJDK (jdk${{ matrix.java }}, ${{ matrix.distribution }}${{ matrix.extra == 'true' && ', extra' || '' }})
       dockerfile_name: Dockerfile-${{ matrix.distribution }}
       build_args: |-
         BASE_IMAGE=mcdreforged/${{ matrix.extra == 'true' && 'mcdreforged-extra' || 'mcdreforged' }}:${{ inputs.source_tag }}

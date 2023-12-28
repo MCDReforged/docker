@@ -8,13 +8,25 @@ RUN <<EOT
 set -e
 export DEBIAN_FRONTEND="noninteractive"
 if [ -n "$JAVA" ]; then
+  # hopefully this fixes the random connection error issue
+  # https://github.com/adoptium/installer/issues/766#issuecomment-1856884963
+  cat <<EOF > /etc/apt/apt.conf.d/timeout_tweak.conf
+Acquire::http::Timeout "30";
+Acquire::http::ConnectionAttemptDelayMsec "2000";
+Acquire::https::Timeout "30";
+Acquire::https::ConnectionAttemptDelayMsec "2000";
+Acquire::ftp::Timeout "30";
+Acquire::ftp::ConnectionAttemptDelayMsec "2000";
+Acquire::Retries "15";
+EOF
+
   apt-get update
   apt-get install --no-install-recommends -y gnupg ca-certificates curl
   curl -so- https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/trusted.gpg.d/adoptium.gpg
   echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
   apt-get update
   apt-get install --no-install-recommends -y "temurin-${JAVA}-jdk"
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/* /etc/apt/apt.conf.d/timeout_tweak.conf
 else
   exit 1
 fi
