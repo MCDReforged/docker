@@ -1,21 +1,18 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-ARG JAVA
+ARG JAVA=17
 
 # https://docs.azul.com/core/install/debian#install-from-azul-apt-repository
 RUN <<EOT
 set -e
 export DEBIAN_FRONTEND="noninteractive"
-if [ -n "$JAVA" ]; then
-  apt-get update
-  apt-get install --no-install-recommends -y gnupg ca-certificates curl
-  curl -so- https://repos.azul.com/azul-repo.key | gpg --dearmor -o /etc/apt/trusted.gpg.d/azul.gpg
-  echo "deb https://repos.azul.com/zulu/deb stable main" | tee /etc/apt/sources.list.d/zulu.list
-  apt-get update
-  apt-get install --no-install-recommends -y "zulu${JAVA}-jdk"
-  rm -rf /var/lib/apt/lists/*
-else
-  exit 1
-fi
+
+apt-get update
+apt-get install -y gnupg ca-certificates curl
+curl -so- https://repos.azul.com/azul-repo.key | gpg --dearmor -o /etc/apt/trusted.gpg.d/azul.gpg
+echo "deb https://repos.azul.com/zulu/deb stable main" | tee /etc/apt/sources.list.d/zulu.list
+apt-get update
+apt-get install -y "zulu${JAVA}-jdk"
+rm -rf /var/lib/apt/lists/*
 EOT

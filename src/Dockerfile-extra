@@ -8,6 +8,14 @@ set -e
 # disable the pip config temporary to install packages to the global storage
 export PIP_CONFIG_FILE=/dev/null
 
+if python3 -V 2>&1 | grep -q "3.12."; then
+  if ! command -v gcc &> /dev/null; then
+    # lz4 doesn't have prebuilt wheels for py3.12 yet
+    # https://github.com/python-lz4/python-lz4/issues/274
+    sed -i '/lz4/d' /requirements_common.txt
+  fi
+fi
+
 pip freeze | grep mcdreforged >> /requirements_common.txt
 pip3 install -r /requirements_common.txt
 
