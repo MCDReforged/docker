@@ -19,7 +19,7 @@ jobs:
     uses: ./.github/workflows/image_one.yml
     secrets: inherit
     with:
-      job_name: Extra image
+      job_name: Extra packages
       dockerfile_name: Dockerfile-extra
       build_args: |-
         BASE_IMAGE=mcdreforged/mcdreforged:${{ inputs.source_tag }}
@@ -37,7 +37,7 @@ jobs:
     uses: ./.github/workflows/image_one.yml
     secrets: inherit
     with:
-      job_name: OpenJDK image (${{ matrix.java }}, ${{ matrix.distribution }}, ${{ matrix.extra }})
+      job_name: OpenJDK (jdk${{ matrix.java }}, ${{ matrix.distribution }}${{ ', extra' && matrix.extra == 'true' || '' }})
       dockerfile_name: Dockerfile-${{ matrix.distribution }}
       build_args: |-
         BASE_IMAGE=mcdreforged/${{ matrix.extra == 'true' && 'mcdreforged-extra' || 'mcdreforged' }}:${{ inputs.source_tag }}

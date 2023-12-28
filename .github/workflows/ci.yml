@@ -1,4 +1,5 @@
 name: Docker images
+run-name: Images CI for "${{ inputs.base_image_tags || github.event.client_payload.base_image_tags }}"
 
 on:
   workflow_dispatch:
@@ -10,7 +11,8 @@ on:
         type: string
         required: true
   repository_dispatch:
-    types: [trigger-workflow]
+    types:
+      - trigger-workflow
 
 jobs:
   build_matrix:
@@ -23,8 +25,11 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            let input_tags = process.env.BASE_IMAGE_TAGS_WD || process.env.BASE_IMAGE_TAGS_RD
+            console.log(`Input raw tags: ${input_tags}`)
+            
             let matrix = {'include': []}
-            let tags = process.env.BASE_IMAGE_TAGS.split(',').filter(tag => tag !== '')
+            let tags = input_tags.split(',').filter(tag => tag !== '')
             tags.forEach(tag => matrix.include.push({'base_image_tag': tag}))
             
             console.log(`matrix:`)
@@ -33,7 +38,8 @@ jobs:
             core.summary.addHeading('Input tags').addCodeBlock(tags.join('\n')).write()
 
         env:
-          BASE_IMAGE_TAGS: ${{ inputs.base_image_tags }}
+          BASE_IMAGE_TAGS_WD: ${{ inputs.base_image_tags }}
+          BASE_IMAGE_TAGS_RD: ${{ github.event.client_payload.base_image_tags }}
 
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
