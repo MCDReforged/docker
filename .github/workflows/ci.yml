@@ -15,41 +15,75 @@ on:
       - trigger-workflow
 
 jobs:
-  build_matrix:
+  config:
     name: Build matrix from input
     runs-on: ubuntu-latest
 
     steps:
       - name: Build matrix
-        id: matrix
+        id: config
         uses: actions/github-script@v7
         with:
           script: |
             let input_tags = process.env.BASE_IMAGE_TAGS_WD || process.env.BASE_IMAGE_TAGS_RD
             console.log(`Input raw tags: ${input_tags}`)
             
-            let matrix = {'include': []}
             let tags = input_tags.split(',').filter(tag => tag !== '')
-            tags.forEach(tag => matrix.include.push({'base_image_tag': tag}))
+            if (tags.length == 0) {
+              core.setFailed("no valid base image tag")
+              return
+            }
             
-            console.log(`matrix:`)
-            console.log(JSON.stringify(matrix, null, 2))
-            core.setOutput('matrix', JSON.stringify(matrix))
-            core.summary.addHeading('Input tags').addCodeBlock(tags.join('\n')).write()
+            let tagsMultiline = tags.join('\n')
+            core.setOutput('tag', tags[0])
+            core.setOutput('tags', tagsMultiline)
+            core.summary.addHeading('Input tags').addCodeBlock(tagsMultiline).write()
+            
+            openjdk_tags = []
+            tags.forEach(tag => {
+              openjdk_tags.push(`type=raw,value=${tag}` + ",enable=${{ matrix.extra == 'false' && matrix.java == '17' }}")
+              openjdk_tags.push(`type=raw,value=${tag}` + "-extra,enable=${{ matrix.extra == 'true' && matrix.java == '17' }}")
+              openjdk_tags.push(`type=raw,value=${tag}` + "-jdk${{ matrix.java }},enable=${{ matrix.extra == 'false' }}")
+              openjdk_tags.push(`type=raw,value=${tag}` + "-jdk${{ matrix.java }}-extra,enable=${{ matrix.extra == 'true' }}")
+            })
+            core.setOutput('openjdk_tags', openjdk_tags.join('\n'))
 
         env:
           BASE_IMAGE_TAGS_WD: ${{ inputs.base_image_tags }}
           BASE_IMAGE_TAGS_RD: ${{ github.event.client_payload.base_image_tags }}
 
     outputs:
-      matrix: ${{ steps.matrix.outputs.matrix }}
+      base_image_tag: ${{ steps.config.outputs.tag }}
+      base_image_tags: ${{ steps.config.outputs.tags }}
+      openjdk_tags: ${{ steps.config.outputs.openjdk_tags }}
 
-  images:
-    needs: build_matrix
-    strategy:
-      matrix: ${{ fromJson(needs.build_matrix.outputs.matrix) }}
-
-    uses: ./.github/workflows/image_derivatives.yml
+  extra:
+    needs: config
+    uses: ./.github/workflows/image_one.yml
     secrets: inherit
     with:
-      source_tag: ${{ matrix.base_image_tag }}
+      job_name: Extra packages
+      dockerfile_name: Dockerfile-extra
+      build_args: |-
+        BASE_IMAGE=mcdreforged/mcdreforged:${{ needs.config.outputs.base_image_tag }}
+      image_name: mcdreforged/mcdreforged-extra
+      image_tags: ${{ needs.config.outputs.base_image_tags }}
+
+  openjdk:
+    needs: extra
+    strategy:
+      matrix:
+        java: ['8', '11', '17', '21']
+        distribution: ['temurin', 'zulu', 'liberica']
+        extra: ['false', 'true']
+
+    uses: ./.github/workflows/image_one.yml
+    secrets: inherit
+    with:
+      job_name: OpenJDK (jdk${{ matrix.java }}, ${{ matrix.distribution }}${{ matrix.extra == 'true' && ', extra' || '' }})
+      dockerfile_name: Dockerfile-${{ matrix.distribution }}
+      build_args: |-
+        BASE_IMAGE=mcdreforged/${{ matrix.extra == 'true' && 'mcdreforged-extra' || 'mcdreforged' }}:${{ needs.config.outputs.base_image_tag }}
+        JAVA=${{ matrix.java }}
+      image_name: mcdreforged/mcdreforged-${{ matrix.distribution }}
+      image_tags: ${{ needs.config.outputs.openjdk_tags }}
