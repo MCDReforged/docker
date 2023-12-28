@@ -1,5 +1,5 @@
 name: Docker images
-run-name: Images CI for "${{ inputs.base_image_tags || github.event.client_payload.base_image_tags }}"${{ github.event.client_payload.git_ref && format(' at {0}', github.event.client_payload.git_ref) || '' }}
+run-name: Images CI for "${{ inputs.base_image_tags || github.event.client_payload.base_image_tags }}"${{ github.event.client_payload.git_ref && format(' at upstream "{0}"', github.event.client_payload.git_ref) || '' }}
 
 on:
   workflow_dispatch:
@@ -24,31 +24,37 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            let input_tags = process.env.BASE_IMAGE_TAGS_WD || process.env.BASE_IMAGE_TAGS_RD
-            console.log(`Input raw tags: ${input_tags}`)
+            let inputTags = process.env.BASE_IMAGE_TAGS_WD || process.env.BASE_IMAGE_TAGS_RD
+            console.log(`Input raw tags: ${inputTags}`)
             
-            let base_image_tags = input_tags.split(',').filter(tag => tag !== '')
-            if (base_image_tags.length == 0) {
+            let baseImageTags = inputTags.split(',').filter(tag => tag !== '')
+            if (baseImageTags.length == 0) {
               core.setFailed("no valid base image tag")
               return
             }
             
-            let tagsMultiline = base_image_tags.join('\n')
-            core.setOutput('base_image_tag', base_image_tags[0])
-            core.setOutput('base_image_tags', tagsMultiline)
-            core.summary.addHeading('Input tags').addCodeBlock(tagsMultiline).write()
-            console.log('base_image_tags:')
-            base_image_tags.forEach(tag => console.log(`- ${tag}`))
+            // use digest whenever possible. fallback to tag name if digest not found
+            let baseDigest = process.env.BASE_IMAGE_DIGEST
+            let baseImage = baseDigest ? `mcdreforged/mcdreforged@${baseDigest}` : `mcdreforged/mcdreforged:${baseImageTags[0]}`
+            core.setOutput('base_image', baseImage)
+            
+            let tagsMultiline = baseImageTags.join('\n')
+            core.setOutput('base_target_tags', tagsMultiline)
+            core.summary.
+              addRaw('**Input Tags**\n', true).addRaw('```', true).addRaw(inputTags, true).addRaw('```\n', true).
+              addRaw('**Base Image**\n', true).addRaw('```', true).addRaw(baseImage, true).addRaw('```\n', true).
+              addRaw('**Base Target Tags**\n', true).addRaw('```', true).addRaw(tagsMultiline, true).addRaw('```\n', true).
+              write()
 
         env:
           BASE_IMAGE_TAGS_WD: ${{ inputs.base_image_tags }}
           BASE_IMAGE_TAGS_RD: ${{ github.event.client_payload.base_image_tags }}
+          BASE_IMAGE_DIGEST: ${{ github.event.client_payload.digest }}
 
     outputs:
-      base_image_tag: ${{ steps.config.outputs.base_image_tag }}
-      base_image_tags: ${{ steps.config.outputs.base_image_tags }}
+      base_image: ${{ steps.config.outputs.base_image }}
+      base_target_tags: ${{ steps.config.outputs.base_target_tags }}
 
-  # TODO: use digit to replace base image tag
   extra:
     name: Extra packages
     needs: config
@@ -57,11 +63,11 @@ jobs:
     with:
       dockerfile_name: Dockerfile-extra
       build_args: |-
-        BASE_IMAGE=mcdreforged/mcdreforged:${{ needs.config.outputs.base_image_tag }}
-      base_image_tags: ${{ needs.config.outputs.base_image_tags }}
+        BASE_IMAGE=${{ needs.config.outputs.base_image }}
+      base_target_tags: ${{ needs.config.outputs.base_target_tags }}
       image_name: mcdreforged/mcdreforged-extra
       image_tag_maker_script: |-
-        core.setOutput('image_tags', process.env.BASE_IMAGE_TAGS)
+        core.setOutput('target_tags', process.env.BASE_TARGET_TAGS)
 
   openjdk:
     name: OpenJDK (jdk${{ matrix.java }}, ${{ matrix.distribution }}${{ matrix.extra == 'true' && ', extra' || '' }})
@@ -77,16 +83,16 @@ jobs:
     with:
       dockerfile_name: Dockerfile-${{ matrix.distribution }}
       build_args: |-
-        BASE_IMAGE=mcdreforged/${{ matrix.extra == 'true' && format('mcdreforged-extra@{0}', needs.extra.outputs.digest) || format('mcdreforged:{0}', needs.config.outputs.base_image_tag) }}
+        BASE_IMAGE=${{ matrix.extra == 'true' && format('mcdreforged/mcdreforged-extra@{0}', needs.extra.outputs.digest) || needs.config.outputs.base_image }}
         JAVA=${{ matrix.java }}
-      base_image_tags: ${{ needs.config.outputs.base_image_tags }}
+      base_target_tags: ${{ needs.config.outputs.base_target_tags }}
       image_name: mcdreforged/mcdreforged-${{ matrix.distribution }}
       image_tag_maker_script: |-
-        let image_tags = []
-        process.env.BASE_IMAGE_TAGS.split('\n').forEach(tag => {
-          image_tags.push(`type=raw,value=${tag},enable=${{ matrix.extra == 'false' && matrix.java == '17' }}`)
-          image_tags.push(`type=raw,value=${tag}-extra,enable=${{ matrix.extra == 'true' && matrix.java == '17' }}`)
-          image_tags.push(`type=raw,value=${tag}-jdk${{ matrix.java }},enable=${{ matrix.extra == 'false' }}`)
-          image_tags.push(`type=raw,value=${tag}-jdk${{ matrix.java }}-extra,enable=${{ matrix.extra == 'true' }}`)
+        let targetTags = []
+        process.env.BASE_TARGET_TAGS.split('\n').forEach(tag => {
+          targetTags.push(`type=raw,value=${tag},enable=${{ matrix.extra == 'false' && matrix.java == '17' }}`)
+          targetTags.push(`type=raw,value=${tag}-extra,enable=${{ matrix.extra == 'true' && matrix.java == '17' }}`)
+          targetTags.push(`type=raw,value=${tag}-jdk${{ matrix.java }},enable=${{ matrix.extra == 'false' }}`)
+          targetTags.push(`type=raw,value=${tag}-jdk${{ matrix.java }}-extra,enable=${{ matrix.extra == 'true' }}`)
         })
-        core.setOutput('image_tags', image_tags.join('\n'))
+        core.setOutput('target_tags', targetTags.join('\n'))

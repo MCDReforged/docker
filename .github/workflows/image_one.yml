@@ -9,7 +9,7 @@ on:
       build_args:
         type: string
         required: true
-      base_image_tags:
+      base_target_tags:
         type: string
         required: true
       image_name:
@@ -41,7 +41,7 @@ jobs:
         with:
           script: ${{ inputs.image_tag_maker_script }}
         env:
-          BASE_IMAGE_TAGS: ${{ inputs.base_image_tags }}
+          BASE_TARGET_TAGS: ${{ inputs.base_target_tags }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -59,7 +59,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ inputs.image_name }}
-          tags: ${{ steps.config.outputs.image_tags }}
+          tags: ${{ steps.config.outputs.target_tags }}
 
       - name: Build and push
         id: build
