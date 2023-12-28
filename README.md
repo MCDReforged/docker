@@ -1,3 +1,6 @@
+> [!CAUTION]
+> Still in early stages of development, expect forced pushes and breaking changes!
+
 # MCDReforged-Docker
 
 Official docker images for [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)
