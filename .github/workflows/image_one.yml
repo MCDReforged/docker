@@ -3,6 +3,9 @@ name: step.image_one
 on:
   workflow_call:
     inputs:
+      job_name:
+        type: string
+        required: false
       dockerfile_name:
         type: string
         required: true
@@ -25,6 +28,7 @@ on:
 
 jobs:
   image:
+    name: ${{ inputs.job_name }}
     runs-on: ubuntu-latest
     outputs:
       imageid: ${{ steps.build.outputs.imageid }}

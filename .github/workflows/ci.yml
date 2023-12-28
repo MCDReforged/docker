@@ -9,6 +9,8 @@ on:
           For example: "1.2.3,1.2.3-slim,1.2.3-py3.11,1.2.3-py3.11-slim"
         type: string
         required: true
+  repository_dispatch:
+    types: [trigger-workflow]
 
 jobs:
   build_matrix:
