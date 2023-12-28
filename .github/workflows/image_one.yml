@@ -3,19 +3,19 @@ name: step.image_one
 on:
   workflow_call:
     inputs:
-      job_name:
-        type: string
-        required: false
       dockerfile_name:
         type: string
         required: true
       build_args:
         type: string
         required: true
+      base_image_tags:
+        type: string
+        required: true
       image_name:
         type: string
         required: true
-      image_tags:
+      image_tag_maker_script:
         type: string
         required: true
     outputs:
@@ -28,7 +28,6 @@ on:
 
 jobs:
   image:
-    name: ${{ inputs.job_name }}
     runs-on: ubuntu-latest
     outputs:
       imageid: ${{ steps.build.outputs.imageid }}
@@ -36,6 +35,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - id: config
+        uses: actions/github-script@v7
+        with:
+          script: ${{ inputs.image_tag_maker_script }}
+        env:
+          BASE_IMAGE_TAGS: ${{ inputs.base_image_tags }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -53,7 +59,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ inputs.image_name }}
-          tags: ${{ inputs.image_tags }}
+          tags: ${{ steps.config.outputs.image_tags }}
 
       - name: Build and push
         id: build

@@ -1,5 +1,5 @@
 name: Docker images
-run-name: Images CI for "${{ inputs.base_image_tags || github.event.client_payload.base_image_tags }}"${{ github.event.client_payload.git_ref && ' at ' + github.event.client_payload.git_ref || '' }}
+run-name: Images CI for "${{ inputs.base_image_tags || github.event.client_payload.base_image_tags }}"${{ github.event.client_payload.git_ref && format(' at {0}', github.event.client_payload.git_ref) || '' }}
 
 on:
   workflow_dispatch:
@@ -16,61 +16,55 @@ on:
 
 jobs:
   config:
-    name: Build matrix from input
+    name: Build config
     runs-on: ubuntu-latest
 
     steps:
-      - name: Build matrix
-        id: config
+      - id: config
         uses: actions/github-script@v7
         with:
           script: |
             let input_tags = process.env.BASE_IMAGE_TAGS_WD || process.env.BASE_IMAGE_TAGS_RD
             console.log(`Input raw tags: ${input_tags}`)
             
-            let tags = input_tags.split(',').filter(tag => tag !== '')
-            if (tags.length == 0) {
+            let base_image_tags = input_tags.split(',').filter(tag => tag !== '')
+            if (base_image_tags.length == 0) {
               core.setFailed("no valid base image tag")
               return
             }
             
-            let tagsMultiline = tags.join('\n')
-            core.setOutput('tag', tags[0])
-            core.setOutput('tags', tagsMultiline)
+            let tagsMultiline = base_image_tags.join('\n')
+            core.setOutput('base_image_tag', base_image_tags[0])
+            core.setOutput('base_image_tags', tagsMultiline)
             core.summary.addHeading('Input tags').addCodeBlock(tagsMultiline).write()
-            
-            openjdk_tags = []
-            tags.forEach(tag => {
-              openjdk_tags.push(`type=raw,value=${tag}` + ",enable=${{ matrix.extra == 'false' && matrix.java == '17' }}")
-              openjdk_tags.push(`type=raw,value=${tag}` + "-extra,enable=${{ matrix.extra == 'true' && matrix.java == '17' }}")
-              openjdk_tags.push(`type=raw,value=${tag}` + "-jdk${{ matrix.java }},enable=${{ matrix.extra == 'false' }}")
-              openjdk_tags.push(`type=raw,value=${tag}` + "-jdk${{ matrix.java }}-extra,enable=${{ matrix.extra == 'true' }}")
-            })
-            core.setOutput('openjdk_tags', openjdk_tags.join('\n'))
+            console.log('base_image_tags:')
+            base_image_tags.forEach(tag => console.log(`- ${tag}`))
 
         env:
           BASE_IMAGE_TAGS_WD: ${{ inputs.base_image_tags }}
           BASE_IMAGE_TAGS_RD: ${{ github.event.client_payload.base_image_tags }}
 
     outputs:
-      base_image_tag: ${{ steps.config.outputs.tag }}
-      base_image_tags: ${{ steps.config.outputs.tags }}
-      openjdk_tags: ${{ steps.config.outputs.openjdk_tags }}
+      base_image_tag: ${{ steps.config.outputs.base_image_tag }}
+      base_image_tags: ${{ steps.config.outputs.base_image_tags }}
 
   extra:
+    name: Extra packages
     needs: config
     uses: ./.github/workflows/image_one.yml
     secrets: inherit
     with:
-      job_name: Extra packages
       dockerfile_name: Dockerfile-extra
       build_args: |-
         BASE_IMAGE=mcdreforged/mcdreforged:${{ needs.config.outputs.base_image_tag }}
+      base_image_tags: ${{ needs.config.outputs.base_image_tags }}
       image_name: mcdreforged/mcdreforged-extra
-      image_tags: ${{ needs.config.outputs.base_image_tags }}
+      image_tag_maker_script: |-
+        core.setOutput('image_tags', process.env.BASE_IMAGE_TAGS)
 
   openjdk:
-    needs: extra
+    name: OpenJDK (jdk${{ matrix.java }}, ${{ matrix.distribution }}${{ matrix.extra == 'true' && ', extra' || '' }})
+    needs: [config, extra]
     strategy:
       matrix:
         java: ['8', '11', '17', '21']
@@ -80,10 +74,18 @@ jobs:
     uses: ./.github/workflows/image_one.yml
     secrets: inherit
     with:
-      job_name: OpenJDK (jdk${{ matrix.java }}, ${{ matrix.distribution }}${{ matrix.extra == 'true' && ', extra' || '' }})
       dockerfile_name: Dockerfile-${{ matrix.distribution }}
       build_args: |-
         BASE_IMAGE=mcdreforged/${{ matrix.extra == 'true' && 'mcdreforged-extra' || 'mcdreforged' }}:${{ needs.config.outputs.base_image_tag }}
         JAVA=${{ matrix.java }}
+      base_image_tags: ${{ needs.config.outputs.base_image_tags }}
       image_name: mcdreforged/mcdreforged-${{ matrix.distribution }}
-      image_tags: ${{ needs.config.outputs.openjdk_tags }}
+      image_tag_maker_script: |-
+        let image_tags = []
+        process.env.BASE_IMAGE_TAGS.split('\n').forEach(tag => {
+          image_tags.push(`type=raw,value=${tag},enable=${{ matrix.extra == 'false' && matrix.java == '17' }}`)
+          image_tags.push(`type=raw,value=${tag}-extra,enable=${{ matrix.extra == 'true' && matrix.java == '17' }}`)
+          image_tags.push(`type=raw,value=${tag}-jdk${{ matrix.java }},enable=${{ matrix.extra == 'false' }}`)
+          image_tags.push(`type=raw,value=${tag}-jdk${{ matrix.java }}-extra,enable=${{ matrix.extra == 'true' }}`)
+        })
+        core.setOutput('image_tags', image_tags.join('\n'))
