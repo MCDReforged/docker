@@ -1,5 +1,5 @@
 name: Docker images
-run-name: Images CI for "${{ inputs.base_image_tags || github.event.client_payload.base_image_tags }}" ref ${{ github.event.client_payload.git_ref || 'N/A' }}
+run-name: Images CI for "${{ inputs.base_image_tags || github.event.client_payload.base_image_tags }}" at ${{ github.event.client_payload.git_ref || 'N/A' }}
 
 on:
   workflow_dispatch:
