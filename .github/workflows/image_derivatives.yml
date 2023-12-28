@@ -1,0 +1,48 @@
+name: step.image_derivatives
+
+# image input: "mcdreforged/mcdreforged:<source_tag>"
+# These images will be built:
+#   mcdreforged/mcdreforged-extra:<source_tag>
+#   mcdreforged/mcdreforged-<jdk_distribution>:<source_tag>
+#   mcdreforged/mcdreforged-<jdk_distribution>:<source_tag>-extra
+#   mcdreforged/mcdreforged-<jdk_distribution>:<source_tag>-jdk<java>
+#   mcdreforged/mcdreforged-<jdk_distribution>:<source_tag>-jdk<java>-extra
+on:
+  workflow_call:
+    inputs:
+      source_tag:
+        type: string
+        required: true
+
+jobs:
+  extra:
+    uses: ./.github/workflows/image_one.yml
+    secrets: inherit
+    with:
+      dockerfile_name: Dockerfile-extra
+      build_args: |-
+        BASE_IMAGE=mcdreforged/mcdreforged:${{ inputs.source_tag }}
+      image_name: mcdreforged/mcdreforged-extra
+      image_tags: ${{ inputs.source_tag }}
+
+  openjdk:
+    needs: extra
+    strategy:
+      matrix:
+        java: ['8', '11', '17', '21']
+        distribution: ['temurin', 'zulu', 'liberica']
+        extra: ['false', 'true']
+
+    uses: ./.github/workflows/image_one.yml
+    secrets: inherit
+    with:
+      dockerfile_name: Dockerfile-${{ matrix.distribution }}
+      build_args: |-
+        BASE_IMAGE=mcdreforged/${{ matrix.extra == 'true' && 'mcdreforged-extra' || 'mcdreforged' }}:${{ inputs.source_tag }}
+        JAVA=${{ matrix.java }}
+      image_name: mcdreforged/mcdreforged-${{ matrix.distribution }}
+      image_tags: |-
+        type=raw,value=${{ inputs.source_tag }},enable=${{ matrix.extra == 'false' && matrix.java == '17' }}
+        type=raw,value=${{ inputs.source_tag }}-extra,enable=${{ matrix.extra == 'true' && matrix.java == '17' }}
+        type=raw,value=${{ inputs.source_tag }}-jdk${{ matrix.java }},enable=${{ matrix.extra == 'false' }}
+        type=raw,value=${{ inputs.source_tag }}-jdk${{ matrix.java }}-extra,enable=${{ matrix.extra == 'true' }}
