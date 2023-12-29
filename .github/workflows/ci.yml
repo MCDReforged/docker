@@ -79,13 +79,13 @@ jobs:
     strategy:
       matrix:
         java: ['8', '11', '17', '21']
-        distribution: ['temurin', 'zulu', 'liberica']
+        distribution: ['temurin', 'zulu', 'corretto', 'liberica']
         extra: ['false', 'true']
 
     uses: ./.github/workflows/image_one.yml
     secrets: inherit
     with:
-      dockerfile_name: Dockerfile-${{ matrix.distribution }}
+      dockerfile_name: Dockerfile-openjdk-${{ matrix.distribution }}
       build_args: |-
         BASE_IMAGE=${{ matrix.extra == 'true' && format('mcdreforged/mcdreforged-extra@{0}', needs.extra.outputs.digest) || needs.config.outputs.base_image }}
         JAVA=${{ matrix.java }}

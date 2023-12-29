@@ -14,14 +14,20 @@ curl -so- https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /et
 echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
 apt-get update
 
-# The temurin deb source is currently very unstable, using apt-get to install might randomly fail
+# The temurin deb source is currently very unstable, using apt-get to install might randomly fail and retry does not work
 # https://github.com/adoptium/adoptium-support/issues/554
 # https://github.com/adoptium/installer/issues/766
 url=$(apt-get install --print-uris -qq temurin-${JAVA}-jdk | grep "temurin-${JAVA}-jdk" | head -n 1 | cut -d "'" -f2)
 echo "deb url: $url"
-curl "$url" -o /tmp/temurin.deb
-
 set +e
+for attempt in $(seq 1 5); do
+  if curl "$url" -o /tmp/temurin.deb; then
+    break
+  fi
+  echo "Download attempt #$attempt failed. Waiting 30 seconds..."
+  sleep 30
+  update-ca-certificates
+done
 dpkg -i /tmp/temurin.deb
 set -e
 
