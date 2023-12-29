@@ -7,6 +7,16 @@ Official docker images for [MCDReforged](https://github.com/Fallen-Breath/MCDRef
 
 ## Images
 
+Runtime environment:
+- User: root
+- Working directory: `/mcdr`
+
+If you want to installed custom python packages, you can:
+
+1. Mount path `/root/.local/lib/python${PYTHON_VERSION}/site-packages/` to a volume or a local directory, 
+   where `PYTHON_VERSION` is the major + minor version of the python interpreter, e.g. `3.11`
+2. Use `pip3` to install packages you want
+
 ### Base Image
 
 [![Docker](https://img.shields.io/docker/v/mcdreforged/mcdreforged/latest)](https://hub.docker.com/r/mcdreforged/mcdreforged)

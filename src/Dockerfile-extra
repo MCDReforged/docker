@@ -20,5 +20,5 @@ pip freeze | grep mcdreforged >> /tmp/requirements_common.txt
 pip3 install -r /tmp/requirements_common.txt
 
 rm -f /tmp/requirements_common.txt
-pip3 cache purge
+pip3 cache purge && rm -rf ~/.cache/
 EOT

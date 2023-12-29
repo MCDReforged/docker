@@ -20,9 +20,13 @@ apt-get update
 url=$(apt-get install --print-uris -qq temurin-${JAVA}-jdk | grep "temurin-${JAVA}-jdk" | head -n 1 | cut -d "'" -f2)
 echo "deb url: $url"
 set +e
-for attempt in $(seq 1 5); do
+for attempt in $(seq 1 10); do
   if curl "$url" -o /tmp/temurin.deb; then
     break
+  fi
+  if [ "$attempt" = "10" ]; then
+    echo "All attempts failed"
+    exit 1
   fi
   echo "Download attempt #$attempt failed. Waiting 30 seconds..."
   sleep 30
