@@ -5,7 +5,7 @@ ARG JAVA=17
 
 # https://docs.azul.com/core/install/debian#install-from-azul-apt-repository
 RUN <<EOT
-set -e
+set -eux
 export DEBIAN_FRONTEND="noninteractive"
 
 apt-get update

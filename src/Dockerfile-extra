@@ -4,7 +4,7 @@ FROM ${BASE_IMAGE}
 COPY requirements_common.txt /
 
 RUN <<EOT
-set -e
+set -eux
 # disable the pip config temporary to install packages to the global storage
 export PIP_CONFIG_FILE=/dev/null
 
