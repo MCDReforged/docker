@@ -45,9 +45,9 @@ jobs:
             let tagsMultiline = baseImageTags.join('\n')
             core.setOutput('base_target_tags', tagsMultiline)
             core.summary.
-              addRaw('**Input Tags**\n', true).addRaw('```', true).addRaw(inputTags, true).addRaw('```\n', true).
-              addRaw('**Base Image**\n', true).addRaw('```', true).addRaw(baseImage, true).addRaw('```\n', true).
-              addRaw('**Base Target Tags**\n', true).addRaw('```', true).addRaw(tagsMultiline, true).addRaw('```\n', true).
+              addRaw('### Input Tags\n', true).addRaw('```', true).addRaw(inputTags, true).addRaw('```\n', true).
+              addRaw('### Base Image\n', true).addRaw('```', true).addRaw(baseImage, true).addRaw('```\n', true).
+              addRaw('### Base Target Tags\n', true).addRaw('```', true).addRaw(tagsMultiline, true).addRaw('```\n', true).
               write()
 
         env:

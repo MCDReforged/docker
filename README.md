@@ -7,7 +7,13 @@ Official docker images for [MCDReforged](https://github.com/Fallen-Breath/MCDRef
 
 ## Images
 
-Base Images with MCDR only (built at https://github.com/Fallen-Breath/MCDReforged):
+### Base Image
+
+[![Docker](https://img.shields.io/docker/v/mcdreforged/mcdreforged/latest)](https://hub.docker.com/r/mcdreforged/mcdreforged)
+
+Built at https://github.com/Fallen-Breath/MCDReforged
+
+Default Python version: 3.11
 
 ```bash
 mcdreforged/mcdreforged:latest
@@ -18,7 +24,10 @@ mcdreforged/mcdreforged:2.13.0-py3.11
 mcdreforged/mcdreforged:2.13.0-py3.11-slim
 ```
 
-Images with extra packages
+### Image with extra packages
+
+Extra packages are collected from the [Plugin Catalogue](https://github.com/MCDReforged/PluginCatalogue),
+covering almost all required packages of the plugins in the catalogue
 
 ```bash
 mcdreforged/mcdreforged-extra:latest
@@ -29,7 +38,18 @@ mcdreforged/mcdreforged-extra:2.13.0-py3.11
 mcdreforged/mcdreforged-extra:2.13.0-py3.11-slim
 ```
 
-Images with openjdk (`-extra` means with extra packages)
+### Image with OpenJDK
+
+Supported openjdk distributions:
+
+- [corretoo](https://aws.amazon.com/corretto/)
+- [liberica](https://bell-sw.com/libericajdk/)
+- [temurin](https://adoptium.net/temurin/)
+- [zulu](https://www.azul.com/downloads/?package=jdk#zulu)
+
+Default JDK version: 17
+
+`-extra` suffix means with extra packages
 
 ```bash
 mcdreforged/mcdreforged-temurin:latest
