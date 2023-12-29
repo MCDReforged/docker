@@ -74,6 +74,7 @@ jobs:
     name: OpenJDK (jdk${{ matrix.java }}, ${{ matrix.distribution }}${{ matrix.extra == 'true' && ', extra' || '' }})
     needs: [config, extra]
     strategy:
+      fail-fast: false
       matrix:
         java: ['8', '11', '17', '21']
         distribution: ['temurin', 'zulu', 'corretto', 'liberica']
