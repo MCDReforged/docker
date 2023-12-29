@@ -14,6 +14,8 @@ on:
   repository_dispatch:
     types:
       - trigger-workflow
+  schedule:
+    - cron: '*/15 * * * *'
 
 jobs:
   config:
@@ -30,8 +32,9 @@ jobs:
             
             let baseImageTags = inputTags.split(',').filter(tag => tag !== '')
             if (baseImageTags.length == 0) {
-              core.setFailed("no valid base image tag")
-              return
+              baseImageTags.push('dev')  // XXX: stability test
+            //   core.setFailed("no valid base image tag")
+            //   return
             }
             
             // use digest whenever possible. fallback to tag name if digest not found
