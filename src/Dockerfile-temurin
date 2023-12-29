@@ -9,30 +9,25 @@ set -eux
 export DEBIAN_FRONTEND="noninteractive"
 
 apt-get update
-apt-get install -y gnupg ca-certificates curl apt-transport-https
+apt-get install -y gnupg ca-certificates curl
 curl -so- https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /etc/apt/keyrings/adoptium.asc
 echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
 apt-get update
 
-# The temurin source is currently very unstable, add more retries for it
+# The temurin deb source is currently very unstable, using apt-get to install might randomly fail
 # https://github.com/adoptium/adoptium-support/issues/554
 # https://github.com/adoptium/installer/issues/766
+url=$(apt-get install --print-uris -qq temurin-${JAVA}-jdk | grep "temurin-${JAVA}-jdk" | head -n 1 | cut -d "'" -f2)
+echo "deb url: $url"
+curl "$url" -o /tmp/temurin.deb
+
 set +e
-attempts=5
-for attempt in $(seq 1 $attempts); do
-  if apt-get install -y "temurin-${JAVA}-jdk"; then
-    break
-  fi
-  if [ "$attempt" != "$attempts" ]; then
-    echo "Install attempt #$attempt failed. Waiting 30 seconds for another attempt..."
-    sleep 30
-    update-ca-certificates
-  else
-    echo "All $attempts attempts failed"
-    exit 1
-  fi
-done
+dpkg -i /tmp/temurin.deb
 set -e
 
+apt-get -y -f install
+java -version
+
+rm -f /tmp/temurin.deb
 rm -rf /var/lib/apt/lists/*
 EOT

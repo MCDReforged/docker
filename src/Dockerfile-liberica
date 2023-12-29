@@ -14,5 +14,6 @@ curl -so- https://download.bell-sw.com/pki/GPG-KEY-bellsoft | gpg --dearmor -o /
 echo "deb https://apt.bell-sw.com/ stable main" | tee /etc/apt/sources.list.d/bellsoft.list
 apt-get update
 apt-get install -y "bellsoft-java${JAVA}"
+java -version
 rm -rf /var/lib/apt/lists/*
 EOT
