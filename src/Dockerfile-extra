@@ -1,7 +1,7 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-COPY requirements_common.txt /
+COPY requirements_common.txt /tmp/
 
 RUN <<EOT
 set -eux
@@ -12,13 +12,13 @@ if python3 -V 2>&1 | grep -q "3.12."; then
   if ! command -v gcc &> /dev/null; then
     # lz4 doesn't have prebuilt wheels for py3.12 yet
     # https://github.com/python-lz4/python-lz4/issues/274
-    sed -i '/lz4/d' /requirements_common.txt
+    sed -i '/lz4/d' /tmp/requirements_common.txt
   fi
 fi
 
-pip freeze | grep mcdreforged >> /requirements_common.txt
-pip3 install -r /requirements_common.txt
+pip freeze | grep mcdreforged >> /tmp/requirements_common.txt
+pip3 install -r /tmp/requirements_common.txt
 
-rm -f /requirements_common.txt
+rm -f /tmp/requirements_common.txt
 pip3 cache purge
 EOT
