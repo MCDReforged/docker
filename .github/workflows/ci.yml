@@ -1,5 +1,6 @@
-name: Docker images
-run-name: Images CI for "${{ inputs.base_image_tags || github.event.client_payload.base_image_tags }}"${{ github.event.client_payload.git_ref && format(' at upstream "{0}"', github.event.client_payload.git_ref) || '' }}
+name: Docker images CI
+run-name: |-
+  Images CI for "${{ inputs.base_image_tags || github.event.client_payload.base_image_tags }}"${{ github.event.client_payload.git_ref && format(' from upstream #{0} at "{1}"', github.event.client_payload.run_number, github.event.client_payload.git_ref) || '' }}
 
 on:
   workflow_dispatch:
