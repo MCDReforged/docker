@@ -10,13 +10,14 @@ export DEBIAN_FRONTEND="noninteractive"
 
 apt-get update
 apt-get install -y gnupg ca-certificates curl
-curl -so- https://apt.corretto.aws/corretto.key | gpg --dearmor -o /usr/share/keyrings/corretto-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main" | tee /etc/apt/sources.list.d/corretto.list
+curl -so- https://apt.corretto.aws/corretto.key | gpg --dearmor -o /etc/apt/trusted.gpg.d/corretto.gpg
+echo "deb https://apt.corretto.aws stable main" | tee /etc/apt/sources.list.d/corretto.list
 apt-get update
 if [ "$JAVA" = "8" ]; then
   JAVA="1.8.0"
 fi
 apt-get install -y "java-${JAVA}-amazon-corretto-jdk"
 java -version
+javac -version
 rm -rf /var/lib/apt/lists/*
 EOT

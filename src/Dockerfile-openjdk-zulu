@@ -15,5 +15,6 @@ echo "deb https://repos.azul.com/zulu/deb stable main" | tee /etc/apt/sources.li
 apt-get update
 apt-get install -y "zulu${JAVA}-jdk"
 java -version
+javac -version
 rm -rf /var/lib/apt/lists/*
 EOT

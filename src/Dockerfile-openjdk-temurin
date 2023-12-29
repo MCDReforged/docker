@@ -35,5 +35,6 @@ done
 set -e
 
 java -version
+javac -version
 rm -rf /var/lib/apt/lists/*
 EOT
