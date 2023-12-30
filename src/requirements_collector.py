@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 import collections
-import re
-from typing import Dict, List, Iterable
-
-import sys
-import urllib.request
 import gzip
 import json
+import re
+import sys
+import urllib.request
 from io import BytesIO
+from typing import Dict, List, Iterable
 
 
 def download_json_gz(url: str):
@@ -44,7 +43,7 @@ def main():
 			for req in reqs:
 				add(plugin_id, req)
 
-	with open('requirements_collector.txt', 'w', encoding='utf8') as f:
+	with open('requirements_common.txt', 'w', encoding='utf8') as f:
 		for req in sorted_string(requirements.keys()):
 			plugins = ', '.join(sorted_string(requirements[req]))
 			f.write(f'# {plugins}\n')
