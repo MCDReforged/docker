@@ -18,8 +18,8 @@ apt-get update
 # https://github.com/adoptium/adoptium-support/issues/554
 # https://github.com/adoptium/installer/issues/766
 set +e
-attempts=5
-wait_times="1 3 5 10"
+wait_times="1 3 5 5 5 5 5 5 5"
+attempts=$(echo "$wait_times" | awk '{print NF}')  # 9 attempts
 for attempt in $(seq 1 $attempts); do
   if apt-get install -y "temurin-${JAVA}-jdk"; then
     break

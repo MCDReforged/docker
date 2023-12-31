@@ -29,7 +29,7 @@ jobs:
             console.log(`Input raw tags: ${inputTags}`)
             
             let baseImageTags = inputTags.split(',').filter(tag => tag !== '')
-            if (baseImageTags.length == 0) {
+            if (baseImageTags.length === 0) {
               core.setFailed("no valid base image tag")
               return
             }
