@@ -63,7 +63,7 @@ Image with extra python packages
 Theses extra packages are collected from the [Plugin Catalogue](https://github.com/MCDReforged/PluginCatalogue),
 covering almost all required packages of the plugins in the catalogue
 
-See [requirements_common.txt](src/requirements_common.txt) for the full extra package list
+See [requirements_extra.txt](src/requirements_extra.txt) for the full extra package list
 
 ```bash
 mcdreforged/mcdreforged-extra:latest

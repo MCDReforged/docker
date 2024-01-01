@@ -38,12 +38,12 @@ def main():
 			else:
 				print('Unknown requirement line {!r} for plugin {!r}'.format(req, plugin_id), file=sys.stderr)
 
-	with open('requirements_extra.json', 'r', encoding='utf8') as f:
+	with open('requirements_additional.json', 'r', encoding='utf8') as f:
 		for plugin_id, reqs in json.load(f).items():
 			for req in reqs:
 				add(plugin_id, req)
 
-	with open('requirements_common.txt', 'w', encoding='utf8') as f:
+	with open('requirements_extra.txt', 'w', encoding='utf8') as f:
 		for req in sorted_string(requirements.keys()):
 			plugins = ', '.join(sorted_string(requirements[req]))
 			f.write(f'# {plugins}\n')
