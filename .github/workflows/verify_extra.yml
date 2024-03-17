@@ -1,0 +1,30 @@
+name: Verify extra packages
+
+on:
+  push:
+    paths:
+      - 'src/requirements_extra.txt'
+      - '.github/workflows/verify_extra.yml'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.11', '3.12']  # last 3 minor versions
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '${{ matrix.python }}'
+
+    - name: Verify Installability
+      run: |
+        python3 -m pip install -U pip
+        pip3 install -r src/requirements_extra.txt
+        
+        echo "# Installation Summary (python ${{matrix.python}})" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        pip3 freeze >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
