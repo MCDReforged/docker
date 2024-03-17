@@ -6,7 +6,7 @@ import re
 import sys
 import urllib.request
 from io import BytesIO
-from typing import Dict, List, Iterable
+from typing import Dict, List, Iterable, NamedTuple
 
 
 def download_json_gz(url: str):
@@ -20,23 +20,30 @@ def sorted_string(collection: Iterable[str]) -> Iterable[str]:
 	return sorted(collection, key=lambda r: (r.lower(), r))
 
 
+class ReqData(NamedTuple):
+	plugin_id: str
+	requirement: str
+
+
 def main():
 	data = download_json_gz('https://raw.githubusercontent.com/MCDReforged/PluginCatalogue/meta/everything.json.gz')
-	requirements: Dict[str, List[str]] = collections.defaultdict(list)
+	requirements: Dict[str, List[ReqData]] = collections.defaultdict(list)
 
 	def add(pid: str, req_: str):
-		req_ = req_.strip().lower().replace('-', '_')
-		if req_ != 'mcdreforged':
-			requirements[req_].append(pid)
+		# https://peps.python.org/pep-0426/#name
+		matched = re.match(r'^([A-Z0-9][A-Z0-9._-]*[A-Z0-9]|[A-Z0-9])(.*)', req_, re.IGNORECASE)
+		if matched is not None:
+			package, rest = matched.group(1), matched.group(2)
+			if package in ['mcdreforged', 'python']:
+				return
+			key = package.strip().lower().replace('-', '_')
+			requirements[key].append(ReqData(pid, req_))
+		else:
+			print('Unknown requirement line {!r} for plugin {!r}'.format(req, plugin_id), file=sys.stderr)
 
 	for plugin_id, plugin in data['plugins'].items():
 		for req in plugin['meta']['requirements']:
-			matched = re.match(r'^([A-Z0-9][A-Z0-9._-]*[A-Z0-9]|[A-Z0-9])', req, re.IGNORECASE)
-			if matched is not None:
-				# https://peps.python.org/pep-0426/#name
-				add(plugin_id, matched.group(1))
-			else:
-				print('Unknown requirement line {!r} for plugin {!r}'.format(req, plugin_id), file=sys.stderr)
+			add(plugin_id, req)
 
 	with open('requirements_additional.json', 'r', encoding='utf8') as f:
 		for plugin_id, reqs in json.load(f).items():
@@ -45,8 +52,15 @@ def main():
 
 	with open('requirements_extra.txt', 'w', encoding='utf8') as f:
 		for req in sorted_string(requirements.keys()):
-			plugins = ', '.join(sorted_string(requirements[req]))
-			f.write(f'# {plugins}\n')
+			items = []
+			for rd in requirements[req]:
+				if rd.requirement == req:
+					items.append(rd.plugin_id)
+				else:
+					items.append('{} ({})'.format(rd.plugin_id, rd.requirement))
+			comment = ', '.join(sorted_string(items))
+
+			f.write(f'# {comment}\n')
 			f.write(f'{req}\n\n')
 
 

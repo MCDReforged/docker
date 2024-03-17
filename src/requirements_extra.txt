@@ -1,8 +1,14 @@
 # qq_api, qq_chat
 aiocqhttp
 
-# cpu_temp, prime_backup
+# matrix_sync
+aiofiles
+
+# cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4)
 apscheduler
+
+# matrix_sync
+asyncio
 
 # prime_backup
 blake3
@@ -10,13 +16,13 @@ blake3
 # chatbridge, pcrc
 colorlog
 
-# mcdr_pycraft_bot, pcrc
+# mcdr_pycraft_bot (cryptography>=1.5), pcrc
 cryptography
 
 # fastapi_mcdr
 fastapi
 
-# simple_translator
+# simple_translator (googletrans == 4.0.0rc1)
 googletrans
 
 # minecraft_data_api, player_manager
@@ -31,19 +37,22 @@ jproperties
 # prime_backup
 lz4
 
+# matrix_sync (matrix-nio)
+matrix_nio
+
 # player_manager
 nbt
 
-# joinmotd_reforged
+# joinmotd_reforged (nbtlib >= 2.0.0)
 nbtlib
 
-# mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, online, player_manager
+# mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, online (parse>=1.19.0), player_manager
 parse
 
-# cpu_temp, info, ipanel_mcdreforged, prime_backup
+# cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup
 psutil
 
-# info
+# info (py-cpuinfo)
 py_cpuinfo
 
 # chatbridge
@@ -52,25 +61,25 @@ pycryptodome
 # chatbridgereforged_mc
 pycryptodomex
 
-# better_backup
+# better_backup (pydal~=20230521.1)
 pydal
 
-# mcdr_pycraft_bot, pcrc
+# mcdr_pycraft_bot (PyNBT), pcrc
 pynbt
 
 # prime_backup
 pytz
 
-# better_backup
+# better_backup (pyzstd~=0.15.9)
 pyzstd
 
 # pcrc
 redbaron
 
-# lite_file_manager, mc_uuid, mcdr_pycraft_bot, mcdreforged_plugin_manager, pcrc, uuid_api, wiki_request
+# lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, pcrc, uuid_api, wiki_request (requests>=2.26.0)
 requests
 
-# eulagree, pcrc
+# eulagree (ruamel.yaml~=0.17), pcrc
 ruamel.yaml
 
 # simple_calculator
@@ -79,16 +88,16 @@ simpleeval
 # faster_transfer
 speedcopy
 
-# database_api, player_manager, prime_backup
+# database_api, player_manager, prime_backup (SQLAlchemy>=2)
 sqlalchemy
 
 # fastapi_mcdr, qq_api
 uvicorn
 
-# ipanel_mcdreforged, onebot_api
+# ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
 websocket_client
 
-# better_backup, prime_backup
+# better_backup (xxhash~=3.4.1), prime_backup (xxhash>=3)
 xxhash
 
 # prime_backup
