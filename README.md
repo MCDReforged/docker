@@ -30,7 +30,7 @@ If you want to installed custom python packages, you can:
 
 1. Mount path `/root/.local/lib/python${PYTHON_VERSION}/site-packages/` to a volume or a local directory 
     - `PYTHON_VERSION` is the major + minor version of the python interpreter, e.g. `3.11`
-    - This step is optional. Installing without the directory mounted results in the loss of the new packages when the container is removed
+    - This mounting step is optional. Installing without the directory mounted results in the loss of the new packages when the container is removed
 2. Use `pip3` to install whatever packages you want like usual. The `--user` argument is set automatically globally
 
    ```bash
@@ -73,6 +73,18 @@ mcdreforged/mcdreforged-extra:2.13.0-slim
 mcdreforged/mcdreforged-extra:2.13.0-py3.11
 mcdreforged/mcdreforged-extra:2.13.0-py3.11-slim
 ```
+
+> [!NOTE] 
+> To ensure the feasibility of python package installation during extra image build, 
+> the actual installed version of those python package in the extra images might not be exactly what the plugin wants
+
+> [!TIP]
+> For production environments, it's suggested to maintain your own set of python package installation instead of simply use the extra images
+> 
+> It's for ensuring that all of your plugins run within the python package environment they claim to be compatible with
+> 
+> You can manually install what your plugins need and mount the `site-packages` directory inside the container to persistent storage.
+> The `site-packages` mount can even be shared across multiple containers as long as their python versions are the same
 
 ### OpenJDK
 
