@@ -1,4 +1,4 @@
-name: __step.image_one
+name: _step.image_one
 
 on:
   workflow_call:
