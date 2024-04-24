@@ -1,4 +1,4 @@
-name: step.image_one
+name: __step.image_one
 
 on:
   workflow_call:
@@ -76,12 +76,13 @@ jobs:
       - name: Report build information
         run: |
           echo -e "### Inputs\n" >> $GITHUB_STEP_SUMMARY
-          echo -e "dockerfile_name: \`${{ inputs.dockerfile_name }}\`\n" >> $GITHUB_STEP_SUMMARY
-          echo -e "build_args: \`${{ inputs.build_args }}\`\n" >> $GITHUB_STEP_SUMMARY
-          echo -e "base_target_tags: \`${{ inputs.base_target_tags }}\`\n" >> $GITHUB_STEP_SUMMARY
-          echo -e "image_name: \`${{ inputs.image_name }}\`\n" >> $GITHUB_STEP_SUMMARY
+          echo -e "- dockerfile_name: \`${{ inputs.dockerfile_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo -e "- build_args: \`${{ inputs.build_args }}\`" >> $GITHUB_STEP_SUMMARY
+          echo -e "- base_target_tags: \`${{ inputs.base_target_tags }}\`" >> $GITHUB_STEP_SUMMARY
+          echo -e "- image_name: \`${{ inputs.image_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo -e "" >> $GITHUB_STEP_SUMMARY
           
           echo -e "### Image tags\n" >> $GITHUB_STEP_SUMMARY
-          echo -e "\`\`\`\n" >> $GITHUB_STEP_SUMMARY
+          echo -e "\`\`\`" >> $GITHUB_STEP_SUMMARY
           echo -e "${{ steps.meta.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
           echo -e "\`\`\`" >> $GITHUB_STEP_SUMMARY

@@ -12,7 +12,7 @@ on:
       base_image_tags:
         description: |
           List of image tags of the mcdreforged/mcdreforged image for the workflow to build as the base images, separated with ",".
-          For example: "1.2.3,1.2.3-slim,1.2.3-py3.11,1.2.3-py3.11-slim"
+          For example: "1.2.3,1.2.3-slim,1.2.3-py3.11,1.2.3-py3.11-slim", or just "dev"
         type: string
         required: true
   repository_dispatch:
