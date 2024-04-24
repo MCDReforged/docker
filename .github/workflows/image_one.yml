@@ -72,3 +72,16 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: ${{ inputs.build_args }}
+
+      - name: Report build information
+        run: |
+          echo -e "### Inputs\n" >> $GITHUB_STEP_SUMMARY
+          echo -e "dockerfile_name: \`${{ inputs.dockerfile_name }}\`\n" >> $GITHUB_STEP_SUMMARY
+          echo -e "build_args: \`${{ inputs.build_args }}\`\n" >> $GITHUB_STEP_SUMMARY
+          echo -e "base_target_tags: \`${{ inputs.base_target_tags }}\`\n" >> $GITHUB_STEP_SUMMARY
+          echo -e "image_name: \`${{ inputs.image_name }}\`\n" >> $GITHUB_STEP_SUMMARY
+          
+          echo -e "### Image tags\n" >> $GITHUB_STEP_SUMMARY
+          echo -e "\`\`\`\n" >> $GITHUB_STEP_SUMMARY
+          echo -e "${{ steps.meta.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
+          echo -e "\`\`\`" >> $GITHUB_STEP_SUMMARY
