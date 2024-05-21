@@ -4,7 +4,7 @@ aiocqhttp
 # matrix_sync
 aiofiles
 
-# cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4)
+# cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4), region_file_updater_multi
 apscheduler
 
 # matrix_sync
@@ -22,7 +22,7 @@ cryptography
 # fastapi_mcdr
 fastapi
 
-# simple_translator (googletrans == 4.0.0rc1)
+# simple_translator (googletrans==4.0.0rc1)
 googletrans
 
 # minecraft_data_api, player_manager
@@ -43,13 +43,13 @@ matrix_nio
 # player_manager
 nbt
 
-# joinmotd_reforged (nbtlib >= 2.0.0)
+# joinmotd_reforged (nbtlib>=2.0.0)
 nbtlib
 
-# mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, online (parse>=1.19.0), player_manager
+# mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, online (parse>=1.19.0), player_manager, region_file_updater_multi
 parse
 
-# cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup
+# cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup, region_file_updater_multi
 psutil
 
 # info (py-cpuinfo)
@@ -97,7 +97,7 @@ uvicorn
 # ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
 websocket_client
 
-# better_backup (xxhash~=3.4.1), prime_backup (xxhash>=3)
+# better_backup (xxhash~=3.4.1), mirror_mcsmcdr (xxhash>=3), prime_backup (xxhash>=3)
 xxhash
 
 # prime_backup

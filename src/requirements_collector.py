@@ -57,7 +57,7 @@ def main():
 				if rd.requirement == req:
 					items.append(rd.plugin_id)
 				else:
-					items.append('{} ({})'.format(rd.plugin_id, rd.requirement))
+					items.append('{} ({})'.format(rd.plugin_id, rd.requirement.replace(' ', '')))
 			comment = ', '.join(sorted_string(items))
 
 			f.write(f'# {comment}\n')
