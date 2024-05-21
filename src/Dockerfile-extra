@@ -8,7 +8,7 @@ set -eux
 # disable the pip config temporary to install packages to the global storage
 export PIP_CONFIG_FILE=/dev/null
 
-pip freeze | grep mcdreforged >> /tmp/requirements_extra.txt
+pip3 freeze | grep mcdreforged >> /tmp/requirements_extra.txt
 pip3 install -r /tmp/requirements_extra.txt
 
 rm -f /tmp/requirements_extra.txt
