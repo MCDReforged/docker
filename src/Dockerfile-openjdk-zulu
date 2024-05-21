@@ -14,6 +14,7 @@ curl -so- https://repos.azul.com/azul-repo.key | gpg --dearmor -o /etc/apt/trust
 echo "deb https://repos.azul.com/zulu/deb stable main" | tee /etc/apt/sources.list.d/zulu.list
 apt-get update
 apt-get install -y "zulu${JAVA}-jdk"
+
 java -version
 javac -version
 rm -rf /var/lib/apt/lists/*

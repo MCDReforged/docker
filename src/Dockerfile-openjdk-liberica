@@ -12,8 +12,10 @@ apt-get update
 apt-get install -y gnupg ca-certificates curl
 curl -so- https://download.bell-sw.com/pki/GPG-KEY-bellsoft | gpg --dearmor -o /etc/apt/trusted.gpg.d/bellsoft.gpg
 echo "deb https://apt.bell-sw.com/ stable main" | tee /etc/apt/sources.list.d/bellsoft.list
+
 apt-get update
 apt-get install -y "bellsoft-java${JAVA}"
+
 java -version
 javac -version
 rm -rf /var/lib/apt/lists/*
