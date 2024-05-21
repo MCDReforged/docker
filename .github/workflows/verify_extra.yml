@@ -22,6 +22,17 @@ jobs:
     - name: Verify Installability
       run: |
         python3 -m pip install -U pip
+        
+        output=$(pip3 install --dry-run --no-deps -I --report - --quiet mcdreforged 2>/dev/null)
+        mcdr_version=$(echo -E "$output" | jq '.install[0].metadata.version' -r)
+        if [ -z $mcdr_version ]; then
+          echo "MCDR version not found. pip output:"
+          echo -E "$output"
+          exit 1
+        fi
+        echo "Latest MCDR version: $mcdr_version"
+        echo "mcdreforged==$mcdr_version" >> src/requirements_extra.txt
+
         pip3 install -r src/requirements_extra.txt
         
         echo "# Installation Summary (python ${{matrix.python}})" >> $GITHUB_STEP_SUMMARY
