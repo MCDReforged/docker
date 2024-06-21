@@ -3,7 +3,7 @@
 
 # MCDReforged-Docker
 
-Official docker images for [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)
+Official docker images for [MCDReforged](https://github.com/MCDReforged/MCDReforged)
 
 ## Usages
 
@@ -43,7 +43,7 @@ If you want to installed custom python packages, you can:
 
 [![Docker](https://img.shields.io/docker/v/mcdreforged/mcdreforged/latest)](https://hub.docker.com/r/mcdreforged/mcdreforged)
 
-Built at https://github.com/Fallen-Breath/MCDReforged
+Built at https://github.com/MCDReforged/MCDReforged
 
 Default Python version: 3.11
 
