@@ -93,7 +93,6 @@ Images with OpenJDK installed
 Supported OpenJDK distributions:
 
 - [corretoo](https://aws.amazon.com/corretto/)
-- [liberica](https://bell-sw.com/libericajdk/)
 - [temurin](https://adoptium.net/temurin/)
 - [zulu](https://www.azul.com/downloads/?package=jdk#zulu)
 

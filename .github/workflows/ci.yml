@@ -81,7 +81,7 @@ jobs:
       fail-fast: false
       matrix:
         java: ['8', '11', '17', '21']
-        distribution: ['temurin', 'zulu', 'corretto', 'liberica']
+        distribution: ['temurin', 'zulu', 'corretto']
         extra: ['false', 'true']
 
     uses: ./.github/workflows/image_one.yml
