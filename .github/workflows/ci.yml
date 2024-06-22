@@ -81,7 +81,7 @@ jobs:
       fail-fast: false
       matrix:
         java: ['8', '11', '17', '21']
-        distribution: ['temurin', 'zulu', 'corretto']
+        distribution: ['temurin', 'corretto', 'zulu']
         extra: ['false', 'true']
 
     uses: ./.github/workflows/image_one.yml
@@ -96,8 +96,8 @@ jobs:
       image_tag_maker_script: |-
         let targetTags = []
         process.env.BASE_TARGET_TAGS.split('\n').forEach(tag => {
-          targetTags.push(`type=raw,value=${tag},enable=${{ matrix.extra == 'false' && matrix.java == '17' }}`)
-          targetTags.push(`type=raw,value=${tag}-extra,enable=${{ matrix.extra == 'true' && matrix.java == '17' }}`)
+          targetTags.push(`type=raw,value=${tag},enable=${{ matrix.extra == 'false' && matrix.java == '21' }}`)
+          targetTags.push(`type=raw,value=${tag}-extra,enable=${{ matrix.extra == 'true' && matrix.java == '21' }}`)
           targetTags.push(`type=raw,value=${tag}-jdk${{ matrix.java }},enable=${{ matrix.extra == 'false' }}`)
           targetTags.push(`type=raw,value=${tag}-jdk${{ matrix.java }}-extra,enable=${{ matrix.extra == 'true' }}`)
         })

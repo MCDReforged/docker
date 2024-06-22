@@ -98,7 +98,7 @@ Supported OpenJDK distributions:
 
 Supported java version: 8, 11, 17, 21
 
-Default JDK version: 17
+Default JDK version: 21
 
 `-extra` suffix means with [extra](#extra) packages
 
