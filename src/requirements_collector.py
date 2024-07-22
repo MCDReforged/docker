@@ -42,9 +42,9 @@ def main():
 			print('Unknown requirement line {!r} for plugin {!r}'.format(req, plugin_id), file=sys.stderr)
 
 	for plugin_id, plugin in data['plugins'].items():
-		releases = plugin['release']
-		if (idx := releases['latest_version_index']) is not None:
-			for req in releases['releases'][idx]['meta']['requirements']:
+		if (release_summary := plugin['release']) is not None and (idx := release_summary['latest_version_index']) is not None:
+			release = release_summary['releases'][idx]
+			for req in release['meta'].get('requirements', []):
 				add(plugin_id, req)
 
 	with open('requirements_additional.json', 'r', encoding='utf8') as f:
