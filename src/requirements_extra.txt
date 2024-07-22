@@ -49,6 +49,9 @@ nbtlib
 # mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, player_manager, region_file_updater_multi
 parse
 
+# prime_backup
+pathspec
+
 # battery_saver, cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup, region_file_updater_multi
 psutil
 
