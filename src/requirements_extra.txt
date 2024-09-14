@@ -10,6 +10,9 @@ apscheduler
 # matrix_sync
 asyncio
 
+# bili_live_helper (bilibili-api-python)
+bilibili_api_python
+
 # prime_backup
 blake3
 
@@ -19,7 +22,7 @@ colorlog
 # mcdr_pycraft_bot (cryptography>=1.5), pcrc
 cryptography
 
-# fastapi_mcdr
+# fastapi_mcdr, mirror_archive_manager (fastapi>=0.111.1)
 fastapi
 
 # simple_translator (googletrans==4.0.0rc1)
@@ -67,11 +70,17 @@ pycryptodomex
 # better_backup (pydal~=20230521.1)
 pydal
 
+# gugubot
+pygame
+
 # mcdr_pycraft_bot (PyNBT), pcrc
 pynbt
 
 # prime_backup
 pytz
+
+# gugubot
+pyyaml
 
 # better_backup (pyzstd~=0.15.9)
 pyzstd
@@ -79,10 +88,10 @@ pyzstd
 # pcrc
 redbaron
 
-# kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, pcrc, uuid_api, wiki_request (requests==2.26.0)
+# gugubot, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, mirror_archive_manager (requests>=2.31.0), pcrc, uuid_api, wiki_request (requests==2.26.0)
 requests
 
-# eulagree (ruamel.yaml~=0.17), pcrc
+# eulagree (ruamel.yaml~=0.17), pcrc, region_file_updater_multi
 ruamel.yaml
 
 # simple_calculator
@@ -97,7 +106,7 @@ sqlalchemy
 # fastapi_mcdr, qq_api
 uvicorn
 
-# ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
+# cq_qq_api (websocket-client), gugubot (websocket-client), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
 websocket_client
 
 # better_backup (xxhash~=3.3.0), mirror_mcsmcdr (xxhash>=3), prime_backup (xxhash>=3)
