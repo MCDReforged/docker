@@ -7,10 +7,13 @@ aiofiles
 # cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4), region_file_updater_multi
 apscheduler
 
+# time_query
+arrow
+
 # matrix_sync
 asyncio
 
-# bili_live_helper (bilibili-api-python)
+# bili_live_helper (bilibili-api-python>=16.3.0)
 bilibili_api_python
 
 # prime_backup
@@ -37,6 +40,9 @@ javaproperties
 # mount
 jproperties
 
+# kookin (khl.py>=0.3.17)
+khl.py
+
 # prime_backup
 lz4
 
@@ -48,6 +54,9 @@ nbt
 
 # joinmotd_reforged (nbtlib>=2.0.0)
 nbtlib
+
+# sshclient
+paramiko
 
 # mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, player_manager, region_file_updater_multi
 parse
@@ -88,7 +97,7 @@ pyzstd
 # pcrc
 redbaron
 
-# gugubot, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, mirror_archive_manager (requests>=2.31.0), pcrc, uuid_api, wiki_request (requests==2.26.0)
+# gugubot, iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, mirror_archive_manager (requests>=2.31.0), pcrc, snapshot_follower, uuid_api, wiki_request (requests==2.26.0)
 requests
 
 # eulagree (ruamel.yaml~=0.17), pcrc, region_file_updater_multi
@@ -103,8 +112,11 @@ speedcopy
 # database_api, player_manager, prime_backup (SQLAlchemy>=2)
 sqlalchemy
 
-# fastapi_mcdr, qq_api
+# fastapi_mcdr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
 uvicorn
+
+# whitelist_api (watchdog>=5.0.2)
+watchdog
 
 # cq_qq_api (websocket-client), gugubot (websocket-client), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
 websocket_client
