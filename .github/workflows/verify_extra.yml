@@ -8,10 +8,12 @@ on:
 
 jobs:
   verify:
+    name: Verify python:${{ matrix.python }}${{ matrix.slim == 'true' && '-slim' || '' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python: ['3.11', '3.12', '3.13']  # last 3 minor versions
+        slim: ['true', 'false']
 
     steps:
     - uses: actions/checkout@v4
@@ -19,10 +21,14 @@ jobs:
       with:
         python-version: '${{ matrix.python }}'
 
-    - name: Verify Installability
+    - name: Prepare requirements and Dockerfile
       run: |
-        python3 -m pip install -U pip
+        set -eux
+        mkdir extra_check
+        cp src/requirements_extra.txt extra_check/requirements_extra.txt
+        cd extra_check
         
+        python3 -m pip install -U pip
         output=$(pip3 install --dry-run --no-deps -I --report - --quiet mcdreforged 2>/dev/null)
         mcdr_version=$(echo -E "$output" | jq '.install[0].metadata.version' -r)
         if [ -z $mcdr_version ]; then
@@ -31,11 +37,50 @@ jobs:
           exit 1
         fi
         echo "Latest MCDR version: $mcdr_version"
-        echo "mcdreforged==$mcdr_version" >> src/requirements_extra.txt
-
-        pip3 install -r src/requirements_extra.txt
+        echo "mcdreforged==$mcdr_version" >> ./requirements_extra.txt
+        cat ./requirements_extra.txt
         
-        echo "# Installation Summary (python ${{matrix.python}})" >> $GITHUB_STEP_SUMMARY
+        cat <<EOF > Dockerfile
+        FROM python:${{ matrix.python }}${{ matrix.slim == 'true' && '-slim' || '' }}
+        COPY ./requirements_extra.txt /
+        RUN <<EOT
+        set -eux
+        export PIP_ROOT_USER_ACTION=ignore
+        python3 -m pip install -U pip
+        pip3 install -r /requirements_extra.txt
+        pip3 cache purge && rm -rf ~/.cache/
+        EOT
+        EOF
+        cat Dockerfile
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Build check
+      id: build
+      uses: docker/build-push-action@v5
+      with:
+        platforms: linux/amd64
+        file: extra_check/Dockerfile
+        context: extra_check
+        push: false
+        load: true  # required, so the following step can use this image to run
+        tags: ci-extra-verification:latest
+
+    - name: pip freeze
+      uses: addnab/docker-run-action@v3
+      with:
+        image: ci-extra-verification:latest
+        options: -v ${{ github.workspace }}:/github_workspace
+        run: |-
+          OUTPUT_FILE=/github_workspace/freeze_out.txt
+          python3 -V >> $OUTPUT_FILE
+          pip3 -V >> $OUTPUT_FILE
+          echo '' >> $OUTPUT_FILE
+          pip3 freeze >> $OUTPUT_FILE
+
+    - name: Report
+      run: |
+        echo "# Installation Summary (python ${{ matrix.python }}, slime ${{ matrix.slim }})" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-        pip3 freeze >> $GITHUB_STEP_SUMMARY
+        cat ./freeze_out.txt >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
