@@ -7,6 +7,9 @@ aiofiles
 # cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4), region_file_updater_multi
 apscheduler
 
+# guguwebui (argon2-cffi)
+argon2_cffi
+
 # time_query
 arrow
 
@@ -25,7 +28,7 @@ colorlog
 # mcdr_pycraft_bot (cryptography>=1.5), pcrc
 cryptography
 
-# fastapi_mcdr, mirror_archive_manager (fastapi>=0.111.1)
+# fastapi_mcdr, guguwebui, mirror_archive_manager (fastapi>=0.111.1)
 fastapi
 
 # simple_translator (googletrans==4.0.0rc1)
@@ -34,7 +37,7 @@ googletrans
 # minecraft_data_api, player_manager
 hjson
 
-# simple_test
+# guguwebui, simple_test
 javaproperties
 
 # mount
@@ -61,6 +64,9 @@ paramiko
 # lbs_velocity_handler, mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, player_manager, region_file_updater_multi
 parse
 
+# guguwebui
+passlib
+
 # prime_backup
 pathspec
 
@@ -78,6 +84,9 @@ pycryptodomex
 
 # better_backup (pydal~=20230521.1)
 pydal
+
+# guguwebui
+pydantic
 
 # gugubot
 pygame
@@ -97,7 +106,7 @@ redbaron
 # gugubot (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, mirror_archive_manager (requests>=2.31.0), pcrc, snapshot_follower, uuid_api, wiki_request (requests==2.26.0)
 requests
 
-# eulagree (ruamel.yaml~=0.17), gugubot, pcrc, region_file_updater_multi
+# eulagree (ruamel.yaml~=0.17), gugubot, guguwebui, pcrc, region_file_updater_multi
 ruamel.yaml
 
 # simple_calculator
@@ -109,10 +118,13 @@ speedcopy
 # database_api, player_manager, prime_backup (SQLAlchemy>=2)
 sqlalchemy
 
+# guguwebui (starlette[full])
+starlette
+
 # venture_chat_handler
 strip_ansi
 
-# fastapi_mcdr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
+# fastapi_mcdr, guguwebui, mirror_archive_manager (uvicorn>=0.31.0), qq_api
 uvicorn
 
 # whitelist_api (watchdog>=5.0.2)
