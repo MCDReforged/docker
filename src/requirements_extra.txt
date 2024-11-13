@@ -17,7 +17,7 @@ asyncio
 bilibili_api_python
 
 # prime_backup
-blake3
+blake3; python_version < '3.13'
 
 # chatbridge, pcrc
 colorlog
@@ -44,7 +44,7 @@ jproperties
 khl.py
 
 # prime_backup
-lz4
+lz4; python_version < '3.13'
 
 # matrix_sync (matrix-nio)
 matrix_nio

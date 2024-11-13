@@ -47,10 +47,12 @@ def main():
 			for req in release['meta'].get('requirements', []):
 				add(plugin_id, req)
 
-	with open('requirements_additional.json', 'r', encoding='utf8') as f:
-		for plugin_id, reqs in json.load(f).items():
+	with open('requirements_extra_config.json', 'r', encoding='utf8') as f:
+		extra_config: dict = json.load(f)
+		for plugin_id, reqs in extra_config['additional'].items():
 			for req in reqs:
 				add(plugin_id, req)
+		environment_markers: Dict[str, str] = extra_config['environment_markers']
 
 	with open('requirements_extra.txt', 'w', encoding='utf8') as f:
 		for req in sorted_string(requirements.keys()):
@@ -62,8 +64,12 @@ def main():
 					items.append('{} ({})'.format(rd.plugin_id, rd.requirement.replace(' ', '')))
 			comment = ', '.join(sorted_string(items))
 
+			req_line = req
+			if (em := environment_markers.get(req)) is not None:
+				req_line += '; ' + em
+
 			f.write(f'# {comment}\n')
-			f.write(f'{req}\n\n')
+			f.write(f'{req_line}\n\n')
 
 
 if __name__ == '__main__':
