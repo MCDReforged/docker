@@ -6,7 +6,6 @@
         ]
     },
     "environment_markers": {
-        "blake3": "python_version < '3.13'",
         "lz4": "python_version < '3.13'"
     }
 }

@@ -20,7 +20,7 @@ asyncio
 bilibili_api_python
 
 # prime_backup
-blake3; python_version < '3.13'
+blake3
 
 # chatbridge, pcrc
 colorlog
