@@ -4,7 +4,7 @@ aiocqhttp
 # matrix_sync
 aiofiles
 
-# cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4), region_file_updater_multi
+# cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4), region_file_updater_multi, zip_backup (apscheduler>=3.6.3)
 apscheduler
 
 # guguwebui (argon2-cffi)
@@ -121,8 +121,11 @@ sqlalchemy
 # guguwebui (starlette[full])
 starlette
 
-# venture_chat_handler
+# bkchat_manager, venture_chat_handler
 strip_ansi
+
+# zip_backup (tqdm>=4.65.0)
+tqdm
 
 # fastapi_mcdr, guguwebui, mirror_archive_manager (uvicorn>=0.31.0), qq_api
 uvicorn
