@@ -121,7 +121,7 @@ sqlalchemy
 # guguwebui (starlette[full])
 starlette
 
-# bkchat_manager, venture_chat_handler
+# bkchat_manager, leaves_handler, venture_chat_handler
 strip_ansi
 
 # zip_backup (tqdm>=4.65.0)
@@ -135,6 +135,9 @@ watchdog
 
 # cq_qq_api (websocket-client), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
 websocket_client
+
+# quizgate
+websockets
 
 # better_backup (xxhash~=3.3.0), mirror_mcsmcdr (xxhash>=3), prime_backup (xxhash>=3)
 xxhash
