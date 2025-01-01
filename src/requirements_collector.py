@@ -53,9 +53,13 @@ def main():
 			for req in reqs:
 				add(plugin_id, req)
 		environment_markers: Dict[str, str] = extra_config['environment_markers']
+		blacklist = set(extra_config['blacklist'])
 
 	with open('requirements_extra.txt', 'w', encoding='utf8') as f:
 		for req in sorted_string(requirements.keys()):
+			if req in blacklist:
+				continue
+
 			items = []
 			for rd in requirements[req]:
 				if rd.requirement == req:
