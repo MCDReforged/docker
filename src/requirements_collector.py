@@ -55,7 +55,11 @@ def main():
 		environment_markers: Dict[str, str] = extra_config['environment_markers']
 		blacklist = set(extra_config['blacklist'])
 
-	with open('requirements_extra.txt', 'w', encoding='utf8') as f:
+	with open('requirements_extra.txt', 'w', encoding='utf8', newline='\n') as f:
+		f.write('# The requirements_extra.txt is licensed under Creative Commons Zero (CC0)\n')
+		f.write('# You are free to use, modify, and distribute it without any restrictions\n')
+		f.write('\n')
+
 		for req in sorted_string(requirements.keys()):
 			if req in blacklist:
 				continue
