@@ -25,7 +25,7 @@ blake3
 # chatbridge, pcrc
 colorlog
 
-# mcdr_pycraft_bot (cryptography>=1.5), pcrc
+# connect_core (cryptography>=44.0.0), mcdr_pycraft_bot (cryptography>=1.5), pcrc
 cryptography
 
 # fastapi_mcdr, guguwebui, mirror_archive_manager (fastapi>=0.111.1)
@@ -70,7 +70,10 @@ passlib
 # prime_backup
 pathspec
 
-# battery_saver, cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup, region_file_updater_multi
+# connect_core (prompt_toolkit>=3.0.50)
+prompt_toolkit
+
+# battery_saver, connect_core (psutil>=6.1.1), cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup, region_file_updater_multi
 psutil
 
 # info (py-cpuinfo)
@@ -97,7 +100,7 @@ pynbt
 # division (pytz>=2023.3), prime_backup
 pytz
 
-# tips
+# connect_core (PyYAML>=6.0.2), tips
 pyyaml
 
 # better_backup (pyzstd~=0.15.9)
@@ -145,7 +148,7 @@ watchdog
 # cq_qq_api (websocket-client), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
 websocket_client
 
-# quizgate
+# connect_core (websockets>=14.2), quizgate
 websockets
 
 # better_backup (xxhash~=3.3.0), mirror_mcsmcdr (xxhash>=3), prime_backup (xxhash>=3)
