@@ -123,5 +123,5 @@ jobs:
           ~~~
           SUMMARY_EOF
         env:
-          USERNAME: fallenbreath
+          USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
