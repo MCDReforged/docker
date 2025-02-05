@@ -20,8 +20,8 @@ on:
       - trigger-workflow
 
 jobs:
-  config:
-    name: Build config
+  prepare:
+    name: Prepare
     runs-on: ubuntu-latest
 
     steps:
@@ -62,21 +62,21 @@ jobs:
 
   extra:
     name: Extra packages
-    needs: config
+    needs: prepare
     uses: ./.github/workflows/image_one.yml
     secrets: inherit
     with:
       dockerfile_name: Dockerfile-extra
       build_args: |-
-        BASE_IMAGE=${{ needs.config.outputs.base_image }}
-      base_target_tags: ${{ needs.config.outputs.base_target_tags }}
+        BASE_IMAGE=${{ needs.prepare.outputs.base_image }}
+      base_target_tags: ${{ needs.prepare.outputs.base_target_tags }}
       image_name: mcdreforged/mcdreforged-extra
       image_tag_maker_script: |-
         core.setOutput('target_tags', process.env.BASE_TARGET_TAGS)
 
   openjdk:
     name: OpenJDK (jdk${{ matrix.java }}, ${{ matrix.distribution }}${{ matrix.extra == 'true' && ', extra' || '' }})
-    needs: [config, extra]
+    needs: [prepare, extra]
     strategy:
       fail-fast: false
       matrix:
@@ -89,9 +89,9 @@ jobs:
     with:
       dockerfile_name: Dockerfile-openjdk-${{ matrix.distribution }}
       build_args: |-
-        BASE_IMAGE=${{ matrix.extra == 'true' && format('mcdreforged/mcdreforged-extra@{0}', needs.extra.outputs.digest) || needs.config.outputs.base_image }}
+        BASE_IMAGE=${{ matrix.extra == 'true' && format('mcdreforged/mcdreforged-extra@{0}', needs.extra.outputs.digest) || needs.prepare.outputs.base_image }}
         JAVA=${{ matrix.java }}
-      base_target_tags: ${{ needs.config.outputs.base_target_tags }}
+      base_target_tags: ${{ needs.prepare.outputs.base_target_tags }}
       image_name: mcdreforged/mcdreforged-${{ matrix.distribution }}
       image_tag_maker_script: |-
         let targetTags = []
@@ -102,3 +102,26 @@ jobs:
           targetTags.push(`type=raw,value=${tag}-jdk${{ matrix.java }}-extra,enable=${{ matrix.extra == 'true' }}`)
         })
         core.setOutput('target_tags', targetTags.join('\n'))
+
+  report:
+    name: Report
+    needs: [extra, openjdk]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: DockerHub Pull Ratelimit Report
+        run: |-
+          set -e
+          TOKEN=$(curl --user "$USERNAME:$PASSWORD" "https://auth.docker.io/token?service=registry.docker.io&scope=repository:ratelimitpreview/test:pull" | jq -r .token)
+          OUTPUT=$(curl --head -H "Authorization: Bearer $TOKEN" https://registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest | grep 'ratelimit-')
+          
+          cat << SUMMARY_EOF >> $GITHUB_STEP_SUMMARY
+          Date: $(date)
+          
+          ~~~
+          ${OUTPUT%$'\n'}
+          ~~~
+          SUMMARY_EOF
+        env:
+          USERNAME: fallenbreath
+          PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
