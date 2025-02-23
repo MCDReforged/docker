@@ -1,11 +1,14 @@
 # The requirements_extra.txt is licensed under Creative Commons Zero (CC0)
 # You are free to use, modify, and distribute it without any restrictions
 
-# qq_api, qq_chat
+# im_api (aiocqhttp>=1.4.4), qq_api, qq_chat
 aiocqhttp
 
 # matrix_sync
 aiofiles
+
+# im_api (aiohttp>=3.8.0)
+aiohttp
 
 # cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4), region_file_updater_multi, zip_backup (apscheduler>=3.6.3)
 apscheduler
@@ -49,7 +52,7 @@ khl.py
 # prime_backup
 lz4; python_version < '3.13'
 
-# matrix_sync (matrix-nio)
+# im_api (matrix-nio>=0.25.2), matrix_sync (matrix-nio)
 matrix_nio
 
 # player_manager
@@ -79,7 +82,7 @@ psutil
 # info (py-cpuinfo)
 py_cpuinfo
 
-# chatbridge
+# chatbridge, loginproxy (pycryptodome>=3.21.0)
 pycryptodome
 
 # chatbridgereforged_mc
@@ -97,10 +100,13 @@ pygame
 # mcdr_pycraft_bot (PyNBT), pcrc
 pynbt
 
+# im_api (python-telegram-bot>=21.10)
+python_telegram_bot
+
 # division (pytz>=2023.3), prime_backup
 pytz
 
-# connect_core (PyYAML>=6.0.2), tips
+# connect_core (PyYAML>=6.0.2), im_api (pyyaml>=6.0.1), tips
 pyyaml
 
 # better_backup (pyzstd~=0.15.9)
@@ -120,6 +126,9 @@ requests
 
 # eulagree (ruamel.yaml~=0.17), gugubot, guguwebui, pcrc, region_file_updater_multi
 ruamel.yaml
+
+# im_api (setuptools>=68.2.0)
+setuptools
 
 # simple_calculator
 simpleeval
