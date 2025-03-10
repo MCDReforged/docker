@@ -25,6 +25,9 @@ bilibili_api_python
 # prime_backup
 blake3
 
+# url_preview
+bs4
+
 # chatbridge, pcrc
 colorlog
 
@@ -109,7 +112,7 @@ python_telegram_bot
 # division (pytz>=2023.3), prime_backup
 pytz
 
-# connect_core (PyYAML>=6.0.2), im_api (pyyaml>=6.0.1), tips
+# connect_core (PyYAML>=6.0.2), im_api (pyyaml>=6.0.1), meowtiwhitelist (PyYAML>=6.0.2), tips
 pyyaml
 
 # better_backup (pyzstd~=0.15.9)
@@ -124,7 +127,7 @@ redis
 # division (rejson>=0.5.6)
 rejson
 
-# chat_with_ai, division (requests>=2.30.0), gugubot (Requests), guguwebui (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, mirror_archive_manager (requests>=2.31.0), pcrc, snapshot_follower, uuid_api, wiki_request (requests==2.26.0)
+# chat_with_ai, division (requests>=2.30.0), gugubot (Requests), guguwebui (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), pcrc, snapshot_follower, uuid_api, wiki_request (requests==2.26.0)
 requests
 
 # eulagree (ruamel.yaml~=0.17), gugubot, guguwebui, pcrc, region_file_updater_multi, world_eater_manage
