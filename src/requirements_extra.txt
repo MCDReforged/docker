@@ -43,8 +43,14 @@ googletrans
 # minecraft_data_api, player_manager
 hjson
 
+# guguwebui
+itsdangerous
+
 # guguwebui, init_server, simple_test
 javaproperties
+
+# guguwebui
+jinja2
 
 # mount
 jproperties
@@ -64,7 +70,7 @@ nbt
 # joinmotd_reforged (nbtlib>=2.0.0)
 nbtlib
 
-# chat_with_ai
+# chat_with_ai, ollama_chat
 openai
 
 # sshclient
@@ -127,7 +133,7 @@ redis
 # division (rejson>=0.5.6)
 rejson
 
-# chat_with_ai, division (requests>=2.30.0), gugubot (Requests), guguwebui (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), pcrc, snapshot_follower, uuid_api, wiki_request (requests==2.26.0)
+# chat_with_ai, division (requests>=2.30.0), gugubot (Requests), guguwebui (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
 requests
 
 # eulagree (ruamel.yaml~=0.17), gugubot, guguwebui, pcrc, region_file_updater_multi, world_eater_manage
