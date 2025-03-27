@@ -9,6 +9,10 @@
         "lz4": "python_version < '3.13'"
     },
     "blacklist": [
-        "pathlib"
+        "json",
+        "pathlib",
+        "re",
+        "time",
+        "urllib"
     ]
 }

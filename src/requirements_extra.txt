@@ -34,7 +34,7 @@ colorlog
 # connect_core (cryptography>=44.0.0), mcdr_pycraft_bot (cryptography>=1.5), pcrc
 cryptography
 
-# fastapi_mcdr, guguwebui, mirror_archive_manager (fastapi>=0.111.1)
+# fastapi_mcdr, guguwebui, mccr, mirror_archive_manager (fastapi>=0.111.1)
 fastapi
 
 # simple_translator (googletrans==4.0.0rc1)
@@ -112,7 +112,7 @@ pygame
 # mcdr_pycraft_bot (PyNBT), pcrc
 pynbt
 
-# im_api (python-telegram-bot>=21.10)
+# im_api (python-telegram-bot>=21.10), telegram_chat (python-telegram-bot>=21.10)
 python_telegram_bot
 
 # division (pytz>=2023.3), prime_backup
@@ -133,7 +133,7 @@ redis
 # division (rejson>=0.5.6)
 rejson
 
-# chat_with_ai, division (requests>=2.30.0), gugubot (Requests), guguwebui (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
+# chat_with_ai, division (requests>=2.30.0), easybot_mcdr (requests~=2.32.3), gugubot (Requests), guguwebui (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
 requests
 
 # eulagree (ruamel.yaml~=0.17), gugubot, guguwebui, pcrc, region_file_updater_multi, world_eater_manage
@@ -160,7 +160,10 @@ strip_ansi
 # zip_backup (tqdm>=4.65.0)
 tqdm
 
-# fastapi_mcdr, guguwebui, mirror_archive_manager (uvicorn>=0.31.0), qq_api
+# prime_backup
+typing_extensions
+
+# fastapi_mcdr, guguwebui, mccr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
 uvicorn
 
 # whitelist_api (watchdog>=5.0.2)
@@ -169,7 +172,7 @@ watchdog
 # cq_qq_api (websocket-client), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
 websocket_client
 
-# connect_core (websockets>=14.2), quizgate
+# connect_core (websockets>=14.2), easybot_mcdr (websockets~=14.2), quizgate
 websockets
 
 # better_backup (xxhash~=3.3.0), mirror_mcsmcdr (xxhash>=3), prime_backup (xxhash>=3)
