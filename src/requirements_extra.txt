@@ -118,7 +118,7 @@ python_telegram_bot
 # division (pytz>=2023.3), prime_backup
 pytz
 
-# connect_core (PyYAML>=6.0.2), im_api (pyyaml>=6.0.1), meowtiwhitelist (PyYAML>=6.0.2), tips
+# cfgcmd, connect_core (PyYAML>=6.0.2), im_api (pyyaml>=6.0.1), meowtiwhitelist (PyYAML>=6.0.2), tips
 pyyaml
 
 # better_backup (pyzstd~=0.15.9)
@@ -156,6 +156,9 @@ starlette
 
 # bkchat_manager, venture_chat_handler
 strip_ansi
+
+# cfgcmd
+toml
 
 # zip_backup (tqdm>=4.65.0)
 tqdm
