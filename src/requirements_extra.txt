@@ -7,11 +7,14 @@ aiocqhttp
 # matrix_sync
 aiofiles
 
-# im_api (aiohttp>=3.8.0)
+# guguwebui, im_api (aiohttp>=3.8.0)
 aiohttp
 
 # cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4), region_file_updater_multi, zip_backup (apscheduler>=3.6.3)
 apscheduler
+
+# guguwebui
+argon2_cffi
 
 # time_query
 arrow
@@ -28,13 +31,16 @@ blake3
 # url_preview
 bs4
 
+# ftp_backup
+chardet
+
 # chatbridge, pcrc
 colorlog
 
 # connect_core (cryptography>=44.0.0), mcdr_pycraft_bot (cryptography>=1.5), pcrc
 cryptography
 
-# fastapi_mcdr, guguwebui, mccr, mirror_archive_manager (fastapi>=0.111.1)
+# fastapi_mcdr, guguwebui (fastapi>=0.68.0), mccr, mirror_archive_manager (fastapi>=0.111.1)
 fastapi
 
 # simple_translator (googletrans==4.0.0rc1)
@@ -73,7 +79,7 @@ nbtlib
 # chat_with_ai, ollama_chat
 openai
 
-# sshclient
+# ftp_backup, sshclient
 paramiko
 
 # lbs_velocity_handler, mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, player_manager, region_file_updater_multi
@@ -112,6 +118,9 @@ pygame
 # mcdr_pycraft_bot (PyNBT), pcrc
 pynbt
 
+# guguwebui (python-multipart)
+python_multipart
+
 # im_api (python-telegram-bot>=21.10), telegram_chat (python-telegram-bot>=21.10)
 python_telegram_bot
 
@@ -133,7 +142,7 @@ redis
 # division (rejson>=0.5.6)
 rejson
 
-# chat_with_ai, division (requests>=2.30.0), easybot_mcdr (requests~=2.32.3), gugubot (Requests), guguwebui (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
+# cfgcmd, chat_with_ai, division (requests>=2.30.0), easybot_mcdr (requests~=2.32.3), gugubot (Requests), guguwebui (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
 requests
 
 # eulagree (ruamel.yaml~=0.17), gugubot, guguwebui, pcrc, region_file_updater_multi, world_eater_manage
@@ -163,10 +172,10 @@ toml
 # zip_backup (tqdm>=4.65.0)
 tqdm
 
-# prime_backup
+# guguwebui (typing-extensions), prime_backup
 typing_extensions
 
-# fastapi_mcdr, guguwebui, mccr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
+# fastapi_mcdr, guguwebui (uvicorn>=0.15.0), guguwebui (uvicorn[standard]), mccr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
 uvicorn
 
 # whitelist_api (watchdog>=5.0.2)
