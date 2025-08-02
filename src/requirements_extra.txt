@@ -7,14 +7,11 @@ aiocqhttp
 # matrix_sync
 aiofiles
 
-# guguwebui, im_api (aiohttp>=3.8.0)
+# im_api (aiohttp>=3.8.0)
 aiohttp
 
-# cpu_temp (APScheduler), prime_backup (APScheduler>=3.8,<4), region_file_updater_multi, zip_backup (apscheduler>=3.6.3)
+# cpu_temp (APScheduler), ftp_backup, prime_backup (APScheduler>=3.8,<4), region_file_updater_multi, zip_backup (apscheduler>=3.6.3)
 apscheduler
-
-# guguwebui
-argon2_cffi
 
 # time_query
 arrow
@@ -37,10 +34,10 @@ chardet
 # chatbridge, pcrc
 colorlog
 
-# connect_core (cryptography>=44.0.0), mcdr_pycraft_bot (cryptography>=1.5), pcrc
+# connect_core, mcdr_pycraft_bot (cryptography>=1.5), pcrc, securercon (cryptography>=44.0.0)
 cryptography
 
-# fastapi_mcdr, guguwebui (fastapi>=0.68.0), mccr, mirror_archive_manager (fastapi>=0.111.1)
+# fastapi_mcdr, mccr, mirror_archive_manager (fastapi>=0.111.1)
 fastapi
 
 # simple_translator (googletrans==4.0.0rc1)
@@ -49,14 +46,8 @@ googletrans
 # minecraft_data_api, player_manager
 hjson
 
-# guguwebui
-itsdangerous
-
-# guguwebui, init_server, simple_test
+# init_server, securercon (javaproperties>=0.8.0), simple_test
 javaproperties
-
-# guguwebui
-jinja2
 
 # mount
 jproperties
@@ -73,7 +64,7 @@ matrix_nio
 # player_manager
 nbt
 
-# joinmotd_reforged (nbtlib>=2.0.0)
+# hat (nbtlib>=2.0.4), joinmotd_reforged (nbtlib>=2.0.0)
 nbtlib
 
 # chat_with_ai, ollama_chat
@@ -85,16 +76,13 @@ paramiko
 # lbs_velocity_handler, mcd_seen, mcd_task, minecraft_data_api, minecraft_version_api, player_manager, region_file_updater_multi
 parse
 
-# guguwebui
-passlib
-
 # prime_backup
 pathspec
 
-# connect_core (prompt_toolkit>=3.0.50)
+# connect_core
 prompt_toolkit
 
-# battery_saver, connect_core (psutil>=6.1.1), cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup, region_file_updater_multi
+# battery_saver, connect_core, cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup, region_file_updater_multi
 psutil
 
 # info (py-cpuinfo)
@@ -109,7 +97,7 @@ pycryptodomex
 # better_backup (pydal~=20230521.1)
 pydal
 
-# guguwebui
+# async_rcon, securercon (pydantic>=2.10.0)
 pydantic
 
 # gugubot
@@ -118,20 +106,20 @@ pygame
 # mcdr_pycraft_bot (PyNBT), pcrc
 pynbt
 
-# guguwebui (python-multipart)
-python_multipart
-
 # im_api (python-telegram-bot>=21.10), telegram_chat (python-telegram-bot>=21.10)
 python_telegram_bot
 
 # division (pytz>=2023.3), prime_backup
 pytz
 
-# cfgcmd, connect_core (PyYAML>=6.0.2), im_api (pyyaml>=6.0.1), meowtiwhitelist (PyYAML>=6.0.2), tips
+# cfgcmd, clear_player_data, connect_core (PyYAML), im_api (pyyaml>=6.0.1), meowtiwhitelist (PyYAML>=6.0.2), securercon (pyyaml>=6.0.0), tips
 pyyaml
 
 # better_backup (pyzstd~=0.15.9)
 pyzstd
+
+# simple_tp (readerwriterlock==1.0.9)
+readerwriterlock
 
 # pcrc
 redbaron
@@ -142,10 +130,10 @@ redis
 # division (rejson>=0.5.6)
 rejson
 
-# cfgcmd, chat_with_ai, division (requests>=2.30.0), easybot_mcdr (requests~=2.32.3), gugubot (Requests), guguwebui (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
+# cfgcmd, chat_with_ai, clear_player_data, division (requests>=2.30.0), easybot_mcdr (requests~=2.32.3), gugubot (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
 requests
 
-# eulagree (ruamel.yaml~=0.17), gugubot, guguwebui, pcrc, region_file_updater_multi, world_eater_manage
+# eulagree (ruamel.yaml~=0.17), gugubot, pcrc, region_file_updater_multi, world_eater_manage
 ruamel.yaml
 
 # im_api (setuptools>=68.2.0)
@@ -160,10 +148,7 @@ speedcopy
 # database_api, player_manager, prime_backup (SQLAlchemy>=2)
 sqlalchemy
 
-# guguwebui
-starlette
-
-# bkchat_manager, venture_chat_handler
+# bkchat_manager
 strip_ansi
 
 # cfgcmd
@@ -172,19 +157,19 @@ toml
 # zip_backup (tqdm>=4.65.0)
 tqdm
 
-# guguwebui (typing-extensions), prime_backup
+# prime_backup
 typing_extensions
 
-# fastapi_mcdr, guguwebui (uvicorn>=0.15.0), guguwebui (uvicorn[standard]), mccr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
+# fastapi_mcdr, mccr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
 uvicorn
 
 # whitelist_api (watchdog>=5.0.2)
 watchdog
 
-# cq_qq_api (websocket-client), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
+# cq_qq_api (websocket-client>=1.4.0), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
 websocket_client
 
-# connect_core (websockets>=14.2), easybot_mcdr (websockets~=14.2), quizgate
+# connect_core, easybot_mcdr (websockets~=14.2), qq_bot (websockets^=15.0.0), quizgate
 websockets
 
 # better_backup (xxhash~=3.3.0), mirror_mcsmcdr (xxhash>=3), prime_backup (xxhash>=3)
