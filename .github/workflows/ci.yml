@@ -67,8 +67,7 @@ jobs:
     secrets: inherit
     with:
       dockerfile_name: Dockerfile-extra
-      build_args: |-
-        BASE_IMAGE=${{ needs.prepare.outputs.base_image }}
+      base_image: ${{ needs.prepare.outputs.base_image }}
       base_target_tags: ${{ needs.prepare.outputs.base_target_tags }}
       image_name: mcdreforged/mcdreforged-extra
       image_tag_maker_script: |-
@@ -89,8 +88,8 @@ jobs:
     with:
       dockerfile_name: Dockerfile-openjdk-${{ matrix.distribution }}
       build_args: |-
-        BASE_IMAGE=${{ matrix.extra == 'true' && format('mcdreforged/mcdreforged-extra@{0}', needs.extra.outputs.digest) || needs.prepare.outputs.base_image }}
         JAVA=${{ matrix.java }}
+      base_image: ${{ matrix.extra == 'true' && format('mcdreforged/mcdreforged-extra@{0}', needs.extra.outputs.digest) || needs.prepare.outputs.base_image }}
       base_target_tags: ${{ needs.prepare.outputs.base_target_tags }}
       image_name: mcdreforged/mcdreforged-${{ matrix.distribution }}
       image_tag_maker_script: |-

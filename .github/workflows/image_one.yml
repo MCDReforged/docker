@@ -8,6 +8,10 @@ on:
         required: true
       build_args:
         type: string
+        required: false
+        default: ''
+      base_image:
+        type: string
         required: true
       base_target_tags:
         type: string
@@ -32,7 +36,7 @@ jobs:
     outputs:
       imageid: ${{ steps.build.outputs.imageid }}
       digest: ${{ steps.build.outputs.digest }}
-
+    
     steps:
       - uses: actions/checkout@v4
 
@@ -47,6 +51,33 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Get supported platforms
+        id: get_platforms
+        run: |
+          platforms=$(docker manifest inspect ${{ inputs.base_image }} | jq -r '.manifests[].platform | select(.architecture != "unknown" and .os != "unknown") | "\(.os)/\(.architecture)"' | paste -sd "," -)
+          echo "platforms=$platforms" >> $GITHUB_OUTPUT
+
+      - name: Preload base image into buildx builder for all platforms
+        run: |
+          # Create a temporary Dockerfile that only contains the FROM instruction for the base image
+          TMP_DOCKERFILE=$(mktemp)
+          echo "FROM ${{ inputs.base_image }}" > $TMP_DOCKERFILE
+
+          IFS=',' read -ra arr <<< "${{ steps.get_platforms.outputs.platforms }}"
+          for platform in "${arr[@]}"; do
+            echo "Pre-pulling for platform: $platform"
+            safe_platform=${platform//\//-}
+            docker buildx build \
+              --platform "$platform" \
+              --load \
+              --file "$TMP_DOCKERFILE" \
+              --tag temp/prepulled:$safe_platform \
+              .
+            echo "Pre-pulled $platform successfully"
+          done
+
+          rm -f "$TMP_DOCKERFILE"
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -65,7 +96,7 @@ jobs:
         id: build
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64
+          platforms: ${{ steps.get_platforms.outputs.platforms }}
           file: src/${{ inputs.dockerfile_name }}
           context: src
           push: ${{ github.event_name != 'pull_request' }}
@@ -73,6 +104,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |-
             BUILDKIT_DOCKERFILE_CHECK=skip=InvalidDefaultArgInFrom
+            BASE_IMAGE=${{ inputs.base_image }}
             ${{ inputs.build_args }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -81,9 +113,10 @@ jobs:
         run: |
           echo -e "### Inputs\n" >> $GITHUB_STEP_SUMMARY
           echo -e "- dockerfile_name: \`${{ inputs.dockerfile_name }}\`" >> $GITHUB_STEP_SUMMARY
-          echo -e "- build_args: \`${{ inputs.build_args }}\`" >> $GITHUB_STEP_SUMMARY
+          echo -e "- base_image: \`${{ inputs.base_image }}\`" >> $GITHUB_STEP_SUMMARY
           echo -e "- base_target_tags: \`${{ inputs.base_target_tags }}\`" >> $GITHUB_STEP_SUMMARY
           echo -e "- image_name: \`${{ inputs.image_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo -e "- build_args: \`${{ inputs.build_args }}\`" >> $GITHUB_STEP_SUMMARY
           echo -e "" >> $GITHUB_STEP_SUMMARY
           
           echo -e "### Image tags\n" >> $GITHUB_STEP_SUMMARY
