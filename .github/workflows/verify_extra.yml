@@ -57,7 +57,7 @@ jobs:
       uses: docker/setup-buildx-action@v3
     - name: Build check
       id: build
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         platforms: linux/amd64
         file: extra_check/Dockerfile
