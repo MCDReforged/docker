@@ -37,7 +37,7 @@ colorlog
 # connect_core, mcdr_pycraft_bot (cryptography>=1.5), pcrc, securercon (cryptography>=44.0.0)
 cryptography
 
-# fastapi_mcdr, mccr, mirror_archive_manager (fastapi>=0.111.1)
+# command_suggest, fastapi_mcdr, mccr, mirror_archive_manager (fastapi>=0.111.1)
 fastapi
 
 # simple_translator (googletrans==4.0.0rc1)
@@ -103,7 +103,7 @@ pycryptodomex
 # better_backup (pydal~=20230521.1)
 pydal
 
-# async_rcon, securercon (pydantic>=2.10.0)
+# async_rcon, prime_backup (pydantic>=2), securercon (pydantic>=2.10.0)
 pydantic
 
 # gugubot
@@ -166,7 +166,7 @@ tqdm
 # prime_backup
 typing_extensions
 
-# fastapi_mcdr, mccr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
+# command_suggest, fastapi_mcdr, mccr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
 uvicorn
 
 # whitelist_api (watchdog>=5.0.2)
