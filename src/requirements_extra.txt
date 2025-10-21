@@ -19,6 +19,9 @@ arrow
 # matrix_sync
 asyncio
 
+# location_api (beartype>=0.20.0)
+beartype
+
 # bili_live_helper (bilibili-api-python>=16.3.0)
 bilibili_api_python
 
