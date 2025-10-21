@@ -6,7 +6,6 @@
         ]
     },
     "environment_markers": {
-        "lz4": "python_version < '3.13'"
     },
     "blacklist": [
         "json",
