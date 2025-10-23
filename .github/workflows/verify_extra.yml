@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ['3.11', '3.12', '3.13']  # last 3 minor versions
+        python: ['3.11', '3.12', '3.13', '3.14']  # last 3 minor versions
         slim: ['false', 'true']
 
     steps:

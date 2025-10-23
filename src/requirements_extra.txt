@@ -23,7 +23,7 @@ asyncio
 beartype
 
 # bili_live_helper (bilibili-api-python>=16.3.0)
-bilibili_api_python
+bilibili_api_python; python_version < '3.14'
 
 # prime_backup
 blake3
@@ -59,7 +59,7 @@ jproperties
 khl.py
 
 # prime_backup
-lz4; python_version < '3.13'
+lz4; python_version < '3.14'
 
 # im_api (matrix-nio>=0.25.2), matrix_sync (matrix-nio)
 matrix_nio
@@ -110,7 +110,7 @@ pydal
 pydantic
 
 # gugubot
-pygame
+pygame; python_version < '3.14'
 
 # mcdr_pycraft_bot (PyNBT), pcrc
 pynbt

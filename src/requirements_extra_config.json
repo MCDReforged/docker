@@ -6,6 +6,9 @@
         ]
     },
     "environment_markers": {
+        "bilibili_api_python": "python_version < '3.14'",
+        "lz4": "python_version < '3.14'",
+        "pygame": "python_version < '3.14'"
     },
     "blacklist": [
         "json",
