@@ -67,7 +67,7 @@ matrix_nio
 # player_manager
 nbt
 
-# hat (nbtlib>=2.0.4), joinmotd_reforged (nbtlib>=2.0.0)
+# hat (nbtlib>=2.0.4), joinmotd_reforged (nbtlib>=2.0.0), llm_translator
 nbtlib
 
 # chat_sync (nonebot2>=2.4.0), chat_sync (nonebot2[httpx])
@@ -76,7 +76,7 @@ nonebot2
 # chat_sync (nonebot-adapter-onebot>=2.4.0)
 nonebot_adapter_onebot
 
-# chat_with_ai, ollama_chat
+# chat_with_ai, llm_translator, ollama_chat
 openai
 
 # ftp_backup, sshclient
@@ -109,9 +109,6 @@ pydal
 # async_rcon, prime_backup (pydantic>=2), securercon (pydantic>=2.10.0)
 pydantic
 
-# gugubot
-pygame; python_version < '3.14'
-
 # mcdr_pycraft_bot (PyNBT), pcrc
 pynbt
 
@@ -139,11 +136,14 @@ redis
 # division (rejson>=0.5.6)
 rejson
 
-# cfgcmd, chat_with_ai, clear_player_data, division (requests>=2.30.0), easybot_mcdr (requests~=2.32.3), gugubot (Requests), iploc, kook_api, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
+# cfgcmd, chat_with_ai, clear_player_data, division (requests>=2.30.0), easybot_mcdr (requests~=2.32.3), gugubot, iploc, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
 requests
 
 # eulagree (ruamel.yaml~=0.17), gugubot, pcrc, region_file_updater_multi, world_eater_manage
 ruamel.yaml
+
+# extra_backup (schedule>=1.2.2)
+schedule
 
 # im_api (setuptools>=68.2.0)
 setuptools
@@ -175,10 +175,13 @@ uvicorn
 # whitelist_api (watchdog>=5.0.2)
 watchdog
 
-# cq_qq_api (websocket-client>=1.4.0), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
+# cq_qq_api (websocket-client>=1.4.0), gugubot (websocket-client>=1.0.0), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
 websocket_client
 
-# connect_core, easybot_mcdr (websockets~=14.2), qq_bot (websockets^=15.0.0), quizgate
+# gugubot (websocket-server>=0.6.0)
+websocket_server
+
+# connect_core, easybot_mcdr (websockets>=14.2), qq_bot (websockets^=15.0.0), quizgate
 websockets
 
 # better_backup (xxhash~=3.3.0), mirror_mcsmcdr (xxhash>=3), prime_backup (xxhash>=3)
