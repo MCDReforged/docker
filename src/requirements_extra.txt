@@ -19,7 +19,10 @@ arrow
 # matrix_sync
 asyncio
 
-# location_api (beartype>=0.20.0)
+# moolings_rcon_api
+asyncrcon
+
+# location_api
 beartype
 
 # bili_live_helper (bilibili-api-python>=16.3.0)
@@ -49,7 +52,7 @@ googletrans
 # minecraft_data_api, player_manager
 hjson
 
-# init_server, securercon (javaproperties>=0.8.0), simple_test
+# init_server, moolings_rcon_api, securercon (javaproperties>=0.8.0), simple_test
 javaproperties
 
 # mount
@@ -106,7 +109,7 @@ pycryptodomex
 # better_backup (pydal~=20230521.1)
 pydal
 
-# async_rcon, prime_backup (pydantic>=2), securercon (pydantic>=2.10.0)
+# prime_backup (pydantic>=2), securercon (pydantic>=2.10.0)
 pydantic
 
 # mcdr_pycraft_bot (PyNBT), pcrc
@@ -124,6 +127,9 @@ pyyaml
 # better_backup (pyzstd~=0.15.9)
 pyzstd
 
+# cushion_of_backup
+rcon
+
 # simple_tp (readerwriterlock==1.0.9)
 readerwriterlock
 
@@ -138,6 +144,9 @@ rejson
 
 # cfgcmd, chat_with_ai, clear_player_data, division (requests>=2.30.0), easybot_mcdr (requests~=2.32.3), gugubot, iploc, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
 requests
+
+# location_api, moolings_rcon_api
+returns
 
 # eulagree (ruamel.yaml~=0.17), gugubot, pcrc, region_file_updater_multi, world_eater_manage
 ruamel.yaml
