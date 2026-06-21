@@ -1,8 +1,8 @@
 {
     "additional": {
         "prime_backup": [
-            "blake3",
-            "lz4"
+            "lz4",
+            "pyfastcdc"
         ]
     },
     "environment_markers": {

@@ -121,6 +121,9 @@ pydal
 # ciki_ecg (pydantic>=2.13.3), console_command_api, mc_tg_bridge (pydantic>=2.12.5), prime_backup (pydantic>=2), securercon (pydantic>=2.10.0)
 pydantic
 
+# prime_backup
+pyfastcdc
+
 # mcdr_pycraft_bot (PyNBT), pcrc
 pynbt
 
