@@ -40,10 +40,13 @@ chardet
 # chatbridge, pcrc
 colorlog
 
-# connect_core, mcdr_pycraft_bot (cryptography>=1.5), pcrc, securercon (cryptography>=44.0.0)
+# ciki_ecg (cryptography>=48.0.0), mcdr_pycraft_bot (cryptography>=1.5), pcrc, securercon (cryptography>=44.0.0)
 cryptography
 
-# command_suggest, fastapi_mcdr, mccr, mirror_archive_manager (fastapi>=0.111.1)
+# kill_server
+dowhen
+
+# command_suggest, console_command_api, fastapi_mcdr, mccr, mirror_archive_manager (fastapi>=0.111.1)
 fastapi
 
 # simple_translator (googletrans==4.0.0rc1)
@@ -67,6 +70,9 @@ lz4
 # im_api (matrix-nio>=0.25.2), matrix_sync (matrix-nio)
 matrix_nio
 
+# gugubot (mcstatus>=11.0.0)
+mcstatus
+
 # player_manager
 nbt
 
@@ -79,7 +85,7 @@ nonebot2
 # chat_sync (nonebot-adapter-onebot>=2.4.0)
 nonebot_adapter_onebot
 
-# chat_with_ai, llm_translator, ollama_chat
+# chat_with_ai, games_ai, llm_translator, ollama_chat
 openai
 
 # ftp_backup, sshclient
@@ -91,10 +97,13 @@ parse
 # prime_backup
 pathspec
 
-# connect_core
-prompt_toolkit
+# mcdr_listener_ws_server (Pillow>=10.0.0)
+pillow
 
-# battery_saver, connect_core, cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup, region_file_updater_multi
+# location_api (primitive-type>=0.1.2)
+primitive_type
+
+# battery_saver, cpu_temp, info, ipanel_mcdreforged (psutil>=5.8.0), prime_backup, region_file_updater_multi
 psutil
 
 # info (py-cpuinfo)
@@ -109,19 +118,19 @@ pycryptodomex
 # better_backup (pydal~=20230521.1)
 pydal
 
-# prime_backup (pydantic>=2), securercon (pydantic>=2.10.0)
+# ciki_ecg (pydantic>=2.13.3), console_command_api, mc_tg_bridge (pydantic>=2.12.5), prime_backup (pydantic>=2), securercon (pydantic>=2.10.0)
 pydantic
 
 # mcdr_pycraft_bot (PyNBT), pcrc
 pynbt
 
-# im_api (python-telegram-bot>=21.10), telegram_chat (python-telegram-bot>=21.10)
+# im_api (python-telegram-bot>=21.10), mc_tg_bridge (python-telegram-bot[rate-limiter]==22.7), telegram_chat (python-telegram-bot>=21.10)
 python_telegram_bot
 
 # division (pytz>=2023.3), prime_backup
 pytz
 
-# cfgcmd, clear_player_data, connect_core (PyYAML), im_api (pyyaml>=6.0.1), meowtiwhitelist (PyYAML>=6.0.2), securercon (pyyaml>=6.0.0), tips
+# cfgcmd, clear_player_data, im_api (pyyaml>=6.0.1), meowtiwhitelist (PyYAML>=6.0.2), securercon (pyyaml>=6.0.0), tips, whitelist_api (PyYAML>=5.4)
 pyyaml
 
 # better_backup (pyzstd~=0.15.9)
@@ -142,13 +151,13 @@ redis
 # division (rejson>=0.5.6)
 rejson
 
-# cfgcmd, chat_with_ai, clear_player_data, division (requests>=2.30.0), easybot_mcdr (requests~=2.32.3), gugubot, iploc, lite_file_manager, mc_uuid (requests>=2.25.1), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
+# cfgcmd, chat_with_ai, clear_player_data, division (requests>=2.30.0), easybot_mcdr (requests>=2.32.3), games_ai, gugubot, iploc, lite_file_manager, mcdr_listener_ws_server (requests>=2.32.0), mcdr_pycraft_bot, mcdreforged_plugin_manager, meowtiwhitelist (requests>=2.31.0), mirror_archive_manager (requests>=2.31.0), ndpr (requests>=2.25.0), ollama_chat, pcrc, snapshot_follower, uuid_api, uuid_api_remake, wiki_request (requests==2.26.0)
 requests
 
 # location_api, moolings_rcon_api
 returns
 
-# eulagree (ruamel.yaml~=0.17), gugubot, pcrc, region_file_updater_multi, world_eater_manage
+# gugubot, pcrc, region_file_updater_multi, world_eater_manage
 ruamel.yaml
 
 # extra_backup (schedule>=1.2.2)
@@ -169,7 +178,7 @@ sqlalchemy
 # bkchat_manager
 strip_ansi
 
-# cfgcmd
+# cfgcmd, ndpr (toml>=0.10.2)
 toml
 
 # zip_backup (tqdm>=4.65.0)
@@ -178,19 +187,19 @@ tqdm
 # prime_backup
 typing_extensions
 
-# command_suggest, fastapi_mcdr, mccr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
+# command_suggest, console_command_api, fastapi_mcdr, mccr, mirror_archive_manager (uvicorn>=0.31.0), qq_api
 uvicorn
 
 # whitelist_api (watchdog>=5.0.2)
 watchdog
 
-# cq_qq_api (websocket-client>=1.4.0), gugubot (websocket-client>=1.0.0), ipanel_mcdreforged (websocket-client>=1.6.1), onebot_api (websocket-client>=1.2.0)
+# cq_qq_api (websocket-client>=1.4.0), gugubot (websocket-client>=1.0.0), ipanel_mcdreforged (websocket-client>=1.6.1)
 websocket_client
 
 # gugubot (websocket-server>=0.6.0)
 websocket_server
 
-# connect_core, easybot_mcdr (websockets>=14.2), qq_bot (websockets^=15.0.0), quizgate
+# easybot_mcdr (websockets>=14.2), huhobot, mcdr_listener_ws_server (websockets>=15.0.0), qq_bot (websockets^=15.0.0), quizgate
 websockets
 
 # better_backup (xxhash~=3.3.0), mirror_mcsmcdr (xxhash>=3), prime_backup (xxhash>=3)
