@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - id: config
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             let inputTags = process.env.BASE_IMAGE_TAGS_WD || process.env.BASE_IMAGE_TAGS_RD
