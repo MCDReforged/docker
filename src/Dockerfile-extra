@@ -1,13 +1,12 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-COPY requirements_extra.txt /tmp/
-
-RUN <<EOT
+RUN --mount=type=bind,source=requirements_extra.txt,target=/tmp/requirements_extra_source.txt,ro <<EOT
 set -eux
 # disable the pip config temporary to install packages to the global storage
 export PIP_CONFIG_FILE=/dev/null
 
+cp /tmp/requirements_extra_source.txt /tmp/requirements_extra.txt
 pip3 freeze | grep mcdreforged >> /tmp/requirements_extra.txt
 pip3 install -r /tmp/requirements_extra.txt
 
