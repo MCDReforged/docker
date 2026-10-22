@@ -9,6 +9,7 @@ export PIP_CONFIG_FILE=/dev/null
 cp /tmp/requirements_extra_source.txt /tmp/requirements_extra.txt
 pip3 freeze | grep mcdreforged >> /tmp/requirements_extra.txt
 pip3 install -r /tmp/requirements_extra.txt
+pip3 freeze
 
 rm -f /tmp/requirements_extra.txt
 pip3 cache purge && rm -rf ~/.cache/
