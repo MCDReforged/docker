@@ -41,13 +41,17 @@ jobs:
         cat ./requirements_extra.txt
         
         cat <<EOF > Dockerfile
+        FROM python:${{ matrix.python }} AS wheels
+        COPY ./requirements_extra.txt /
+        RUN pip3 wheel --wheel-dir=/wheelhouse -r /requirements_extra.txt
+
         FROM python:${{ matrix.python }}${{ matrix.slim == 'true' && '-slim' || '' }}
         COPY ./requirements_extra.txt /
-        RUN <<EOT
+        RUN --mount=type=bind,from=wheels,source=/wheelhouse,target=/wheelhouse,ro <<EOT
         set -eux
         export PIP_ROOT_USER_ACTION=ignore
         python3 -m pip install -U pip
-        pip3 install -r /requirements_extra.txt
+        pip3 install --find-links=/wheelhouse -r /requirements_extra.txt
         pip3 cache purge && rm -rf ~/.cache/
         EOT
         EOF
