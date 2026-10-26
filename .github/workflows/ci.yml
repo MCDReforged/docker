@@ -56,9 +56,22 @@ jobs:
           BASE_IMAGE_TAGS_RD: ${{ github.event.client_payload.base_image_tags }}
           BASE_IMAGE_DIGEST: ${{ github.event.client_payload.digest }}
 
+      - name: Determine Python build image
+        id: python_config
+        env:
+          BASE_IMAGE: ${{ steps.config.outputs.base_image }}
+        run: |
+          set -euxo pipefail
+          docker run --rm --platform linux/amd64 --entrypoint sh "$BASE_IMAGE" -c '
+            set -eu
+            . /etc/os-release
+            printf "python_build_image=python:%s-%s\n" "$PYTHON_VERSION" "$VERSION_CODENAME"
+          ' | tee -a "$GITHUB_OUTPUT"
+
     outputs:
       base_image: ${{ steps.config.outputs.base_image }}
       base_target_tags: ${{ steps.config.outputs.base_target_tags }}
+      python_build_image: ${{ steps.python_config.outputs.python_build_image }}
 
   extra:
     name: Extra packages
@@ -69,6 +82,7 @@ jobs:
       dockerfile_name: Dockerfile-extra
       build_args: |-
         BASE_IMAGE=${{ needs.prepare.outputs.base_image }}
+        PYTHON_BUILD_IMAGE=${{ needs.prepare.outputs.python_build_image }}
       base_target_tags: ${{ needs.prepare.outputs.base_target_tags }}
       image_name: mcdreforged/mcdreforged-extra
       image_tag_maker_script: |-

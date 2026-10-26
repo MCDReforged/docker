@@ -1,14 +1,25 @@
 ARG BASE_IMAGE
+ARG PYTHON_BUILD_IMAGE
+
+FROM ${PYTHON_BUILD_IMAGE} AS wheels
+
+RUN --mount=type=bind,source=requirements_extra.txt,target=/tmp/requirements_extra.txt,ro <<EOT
+set -eux
+pip3 wheel --wheel-dir=/wheelhouse -r /tmp/requirements_extra.txt
+ls -la /wheelhouse
+EOT
+
 FROM ${BASE_IMAGE}
 
-RUN --mount=type=bind,source=requirements_extra.txt,target=/tmp/requirements_extra_source.txt,ro <<EOT
+RUN --mount=type=bind,from=wheels,source=/wheelhouse,target=/wheelhouse,ro \
+    --mount=type=bind,source=requirements_extra.txt,target=/tmp/requirements_extra_source.txt,ro <<EOT
 set -eux
 # disable the pip config temporary to install packages to the global storage
 export PIP_CONFIG_FILE=/dev/null
 
 cp /tmp/requirements_extra_source.txt /tmp/requirements_extra.txt
 pip3 freeze | grep mcdreforged >> /tmp/requirements_extra.txt
-pip3 install -r /tmp/requirements_extra.txt
+pip3 install --find-links=/wheelhouse -r /tmp/requirements_extra.txt
 pip3 freeze
 
 rm -f /tmp/requirements_extra.txt
